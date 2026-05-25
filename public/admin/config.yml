@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+locale: 'ar'
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "site-settings"
+    label: "إعدادات الموقع"
+    files:
+      - name: "contact"
+        label: "معلومات التواصل"
+        file: "content/contact.json"
+        fields:
+          - { label: "العنوان", name: "address", widget: "string" }
+          - { label: "رقم الهاتف", name: "phone", widget: "string" }
+          - { label: "رقم الواتساب", name: "whatsapp", widget: "string" }
+          - { label: "ساعات العمل", name: "workingHours", widget: "string" }
+
+  - name: "services"
+    label: "الخدمات"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "عنوان الخدمة", name: "title", widget: "string" }
+      - { label: "وصف الخدمة", name: "description", widget: "text" }
+      - { label: "صورة الخدمة", name: "image", widget: "image", required: false }
+      - label: "المميزات"
+        name: "features"
+        widget: "list"
+        field: { label: "ميزة", name: "feature", widget: "string" }
+
+  - name: "pages"
+    label: "الصفحات"
+    files:
+      - name: "home"
+        label: "الصفحة الرئيسية"
+        file: "content/home.json"
+        fields:
+          - { label: "العنوان الرئيسي", name: "heroTitle", widget: "string" }
+          - { label: "النص الفرعي", name: "heroSubtitle", widget: "text" }
+          - { label: "نص زر التواصل", name: "ctaText", widget: "string" }
+      - name: "about"
+        label: "من نحن"
+        file: "content/about.json"
+        fields:
+          - { label: "العنوان", name: "title", widget: "string" }
+          - { label: "الوصف", name: "description", widget: "text" }
+          - { label: "سنوات الخبرة", name: "yearsExperience", widget: "number" }
