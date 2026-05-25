@@ -8,18 +8,18 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
-  - name: "home-page"
-    label: "الصفحة الرئيسية"
+  - name: "homepage"
+    label: "1- الرئيسية"
     files:
       - name: "home"
-        label: "محتوى الصفحة الرئيسية"
+        label: "تعديل الصفحة الرئيسية"
         file: "content/home.json"
         fields:
-          - { label: "صورة الخلفية (رابط)", name: "heroImage", widget: "string", hint: "رابط صورة خلفية القسم الأول" }
+          - { label: "صورة الخلفية (رابط)", name: "heroImage", widget: "string" }
           - { label: "العنوان الرئيسي", name: "heroTitle", widget: "string" }
           - { label: "العلامات التجارية", name: "heroBrands", widget: "string" }
           - { label: "الوصف التعريفي", name: "heroDescription", widget: "text" }
-          - { label: "نص الزر الأول", name: "heroButton1", widget: "string" }
+          - { label: "نص الزر الاول", name: "heroButton1", widget: "string" }
           - { label: "نص الزر الثاني", name: "heroButton2", widget: "string" }
           - { label: "عنوان قسم الخدمات", name: "servicesTitle", widget: "string" }
           - { label: "وصف قسم الخدمات", name: "servicesSubtitle", widget: "text" }
@@ -29,27 +29,27 @@ collections:
             fields:
               - { label: "اسم الخدمة", name: "title", widget: "string" }
               - { label: "وصف مختصر", name: "desc", widget: "text" }
-          - { label: "عنوان قسم لماذا نحن", name: "whyUsTitle", widget: "string" }
-          - { label: "وصف قسم لماذا نحن", name: "whyUsDescription", widget: "text" }
+          - { label: "عنوان لماذا نحن", name: "whyUsTitle", widget: "string" }
+          - { label: "وصف لماذا نحن", name: "whyUsDescription", widget: "text" }
           - label: "نقاط القوة"
             name: "strengths"
             widget: "list"
             field: { label: "نقطة", name: "strength", widget: "string" }
-          - { label: "عنوان قسم الشراكة", name: "ctaTitle", widget: "string" }
-          - { label: "وصف قسم الشراكة", name: "ctaDescription", widget: "text" }
+          - { label: "عنوان الشراكة", name: "ctaTitle", widget: "string" }
+          - { label: "وصف الشراكة", name: "ctaDescription", widget: "text" }
           - { label: "نص زر الشراكة", name: "ctaButton", widget: "string" }
 
-  - name: "about-page"
-    label: "صفحة من نحن"
+  - name: "aboutpage"
+    label: "2- من نحن"
     files:
       - name: "about"
-        label: "محتوى صفحة من نحن"
+        label: "تعديل صفحة من نحن"
         file: "content/about.json"
         fields:
           - { label: "عنوان الصفحة", name: "pageTitle", widget: "string" }
           - { label: "العنوان الفرعي", name: "pageSubtitle", widget: "string" }
           - { label: "عنوان القصة", name: "storyTitle", widget: "string" }
-          - { label: "الفقرة الأولى", name: "storyParagraph1", widget: "text" }
+          - { label: "الفقرة الاولى", name: "storyParagraph1", widget: "text" }
           - { label: "الفقرة الثانية", name: "storyParagraph2", widget: "text" }
           - { label: "الفقرة الثالثة", name: "storyParagraph3", widget: "text" }
           - { label: "عنوان الرؤية", name: "visionTitle", widget: "string" }
@@ -63,27 +63,27 @@ collections:
               - { label: "العنوان", name: "title", widget: "string" }
               - { label: "الوصف", name: "desc", widget: "text" }
 
-  - name: "contact-info"
-    label: "معلومات التواصل"
+  - name: "contactinfo"
+    label: "3- التواصل"
     files:
       - name: "contact"
-        label: "بيانات التواصل"
+        label: "تعديل معلومات التواصل"
         file: "content/contact.json"
         fields:
-          - { label: "العنوان", name: "address", widget: "string", hint: "عنوان الورشة" }
+          - { label: "العنوان", name: "address", widget: "string" }
           - { label: "رقم الهاتف", name: "phone", widget: "string" }
           - { label: "رقم الواتساب", name: "whatsapp", widget: "string" }
           - { label: "ساعات العمل", name: "workingHours", widget: "string" }
 
   - name: "services"
-    label: "الخدمات"
+    label: "4- الخدمات"
     folder: "content/services"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "اسم الخدمة", name: "title", widget: "string" }
       - { label: "وصف الخدمة", name: "description", widget: "text" }
-      - { label: "رابط صورة الخدمة", name: "image", widget: "string", hint: "رابط صورة (URL)" }
+      - { label: "رابط صورة الخدمة", name: "image", widget: "string" }
       - label: "المميزات"
         name: "features"
         widget: "list"
