@@ -2,12 +2,13 @@
 import { motion } from "framer-motion";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
+import contactData from "../../../content/contact.json";
 
 const contactInfo = [
-  { icon: Phone, title: "هاتف", value: "+963 989 280 600", href: "tel:+963989280600" },
-  { icon: MessageCircle, title: "واتساب", value: "تواصل عبر واتساب", href: "https://wa.me/963989280600" },
-  { icon: MapPin, title: "العنوان", value: "سوريا - حمص - أوتوستراد التحويلة مفرق تل الشور", href: "#" },
-  { icon: Clock, title: "أوقات العمل", value: "السبت - الخميس: 8:00 ص - 6:00 م", href: "#" },
+  { icon: Phone, title: "هاتف", value: contactData.phone, href: `tel:${contactData.phone.replace(/\s/g, '')}` },
+  { icon: MessageCircle, title: "واتساب", value: "تواصل عبر واتساب", href: `https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}` },
+  { icon: MapPin, title: "العنوان", value: contactData.address, href: "#" },
+  { icon: Clock, title: "أوقات العمل", value: contactData.workingHours, href: "#" },
 ];
 
 export default function ContactPage() {

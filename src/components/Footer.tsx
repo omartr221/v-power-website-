@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+import contactData from "../../content/contact.json";
 
 export default function Footer() {
   return (
@@ -33,19 +34,19 @@ export default function Footer() {
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-sm">
               <MapPin className="w-5 h-5 text-red-500 shrink-0" />
-              <span>سوريا - حمص - أوتوستراد التحويلة مفرق تل الشور</span>
+              <span>{contactData.address}</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <Phone className="w-5 h-5 text-red-500 shrink-0" />
-              <a href="tel:+963989280600" className="hover:text-red-400 transition-colors">+963 989 280 600</a>
+              <a href={`tel:${contactData.phone.replace(/\s/g, '')}`} className="hover:text-red-400 transition-colors">{contactData.phone}</a>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <MessageCircle className="w-5 h-5 text-green-500 shrink-0" />
-              <a href="https://wa.me/963989280600" target="_blank" className="hover:text-green-400 transition-colors">واتساب</a>
+              <a href={`https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}`} target="_blank" className="hover:text-green-400 transition-colors">واتساب</a>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <Clock className="w-5 h-5 text-red-500 shrink-0" />
-              <span>السبت - الخميس: 8:00 ص - 6:00 م</span>
+              <span>{contactData.workingHours}</span>
             </div>
           </div>
         </div>
