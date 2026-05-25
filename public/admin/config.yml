@@ -8,47 +8,77 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
-  - name: "settings"
-    label: "⚙️ إعدادات عامة"
-    files:
-      - name: "contact"
-        label: "📞 معلومات التواصل"
-        file: "content/contact.json"
-        fields:
-          - { label: "العنوان", name: "address", widget: "string", hint: "عنوان الورشة الكامل" }
-          - { label: "رقم الهاتف", name: "phone", widget: "string", hint: "مثال: +963 989 280 600" }
-          - { label: "رقم الواتساب", name: "whatsapp", widget: "string" }
-          - { label: "ساعات العمل", name: "workingHours", widget: "string", hint: "مثال: السبت - الخميس: 9 صباحاً - 5 مساءً" }
-
   - name: "pages"
-    label: "📄 صفحات الموقع"
+    label: "صفحات الموقع"
     files:
       - name: "home"
-        label: "🏠 الصفحة الرئيسية"
+        label: "الصفحة الرئيسية"
         file: "content/home.json"
         fields:
-          - { label: "العنوان الرئيسي", name: "heroTitle", widget: "string", hint: "العنوان الكبير اللي بيظهر أول شي" }
-          - { label: "النص التعريفي", name: "heroSubtitle", widget: "text", hint: "الوصف اللي تحت العنوان" }
-          - { label: "نص زر التواصل", name: "ctaText", widget: "string" }
+          - { label: "صورة الخلفية الرئيسية (رابط)", name: "heroImage", widget: "string", hint: "رابط صورة خلفية القسم الأول" }
+          - { label: "العنوان الرئيسي", name: "heroTitle", widget: "string" }
+          - { label: "العلامات التجارية", name: "heroBrands", widget: "string" }
+          - { label: "الوصف التعريفي", name: "heroDescription", widget: "text" }
+          - { label: "نص الزر الأول", name: "heroButton1", widget: "string" }
+          - { label: "نص الزر الثاني", name: "heroButton2", widget: "string" }
+          - { label: "عنوان قسم الخدمات", name: "servicesTitle", widget: "string" }
+          - { label: "وصف قسم الخدمات", name: "servicesSubtitle", widget: "text" }
+          - label: "الخدمات المعروضة"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "اسم الخدمة", name: "title", widget: "string" }
+              - { label: "وصف مختصر", name: "desc", widget: "text" }
+          - { label: "عنوان قسم لماذا نحن", name: "whyUsTitle", widget: "string" }
+          - { label: "وصف قسم لماذا نحن", name: "whyUsDescription", widget: "text" }
+          - label: "نقاط القوة"
+            name: "strengths"
+            widget: "list"
+            field: { label: "نقطة", name: "strength", widget: "string" }
+          - { label: "عنوان قسم الشراكة", name: "ctaTitle", widget: "string" }
+          - { label: "وصف قسم الشراكة", name: "ctaDescription", widget: "text" }
+          - { label: "نص زر الشراكة", name: "ctaButton", widget: "string" }
+
       - name: "about"
-        label: "👤 صفحة من نحن"
+        label: "صفحة من نحن"
         file: "content/about.json"
         fields:
-          - { label: "العنوان", name: "title", widget: "string" }
-          - { label: "الوصف", name: "description", widget: "text" }
-          - { label: "سنوات الخبرة", name: "yearsExperience", widget: "number" }
+          - { label: "عنوان الصفحة", name: "pageTitle", widget: "string" }
+          - { label: "العنوان الفرعي", name: "pageSubtitle", widget: "string" }
+          - { label: "عنوان القصة", name: "storyTitle", widget: "string" }
+          - { label: "الفقرة الأولى", name: "storyParagraph1", widget: "text" }
+          - { label: "الفقرة الثانية", name: "storyParagraph2", widget: "text" }
+          - { label: "الفقرة الثالثة", name: "storyParagraph3", widget: "text" }
+          - { label: "عنوان الرؤية", name: "visionTitle", widget: "string" }
+          - { label: "نص الرؤية", name: "visionText", widget: "text" }
+          - { label: "عنوان المهمة", name: "missionTitle", widget: "string" }
+          - { label: "نص المهمة", name: "missionText", widget: "text" }
+          - label: "القيم"
+            name: "values"
+            widget: "list"
+            fields:
+              - { label: "العنوان", name: "title", widget: "string" }
+              - { label: "الوصف", name: "desc", widget: "text" }
+
+      - name: "contact"
+        label: "معلومات التواصل"
+        file: "content/contact.json"
+        fields:
+          - { label: "العنوان", name: "address", widget: "string", hint: "عنوان الورشة" }
+          - { label: "رقم الهاتف", name: "phone", widget: "string" }
+          - { label: "رقم الواتساب", name: "whatsapp", widget: "string" }
+          - { label: "ساعات العمل", name: "workingHours", widget: "string" }
 
   - name: "services"
-    label: "🔧 الخدمات"
+    label: "الخدمات (صفحة الخدمات)"
     folder: "content/services"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "اسم الخدمة", name: "title", widget: "string" }
       - { label: "وصف الخدمة", name: "description", widget: "text" }
-      - { label: "رابط صورة الخدمة", name: "image", widget: "string", hint: "رابط الصورة (URL)" }
-      - label: "المميزات والتفاصيل"
+      - { label: "رابط صورة الخدمة", name: "image", widget: "string", hint: "رابط صورة (URL)" }
+      - label: "المميزات"
         name: "features"
         widget: "list"
-        hint: "أضف كل ميزة بسطر"
         field: { label: "ميزة", name: "feature", widget: "string" }

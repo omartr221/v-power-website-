@@ -2,13 +2,10 @@
 import { motion } from "framer-motion";
 import { Target, Eye, Award, Users, Globe, Handshake } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, TextReveal, GlowCard, MagneticHover } from "@/components/MotionElements";
+import aboutData from "../../../content/about.json";
 
-const values = [
-  { icon: Award, title: "الجودة", desc: "نلتزم بأعلى معايير الجودة العالمية في كل خدمة نقدّمها" },
-  { icon: Users, title: "التخصص", desc: "تركيز كامل على مجموعة VAG يمنحنا عمقاً لا يُضاهى" },
-  { icon: Globe, title: "الشراكات", desc: "علاقات مع موردين دوليين وشركاء معتمدين" },
-  { icon: Handshake, title: "الموثوقية", desc: "ضمان على جميع الأعمال والتزام بالمواعيد" },
-];
+const iconMap = [Award, Users, Globe, Handshake];
+const values = aboutData.values.map((v, i) => ({ ...v, icon: iconMap[i] || Award }));
 
 export default function AboutPage() {
   return (
@@ -17,9 +14,9 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 text-center mb-16">
         <RevealOnScroll direction="down">
           <p className="text-red-600 font-bold text-sm mb-3">من نحن</p>
-          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">تعرّف على V POWER TUNING</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">{aboutData.pageTitle}</h1>
           <div className="accent-divider w-20 mx-auto mb-5"></div>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg">الشريك المتخصص في خدمات سيارات مجموعة VAG</p>
+          <p className="text-gray-500 max-w-2xl mx-auto text-lg">{aboutData.pageSubtitle}</p>
         </RevealOnScroll>
       </div>
 
@@ -28,19 +25,19 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
           <RevealOnScroll direction="right">
             <div>
-              <h2 className="text-3xl font-black text-dark mb-6">قصّتنا</h2>
+              <h2 className="text-3xl font-black text-dark mb-6">{aboutData.storyTitle}</h2>
               <TextReveal
-                text="V POWER TUNING شركة متخصصة حصرياً في خدمات سيارات مجموعة VAG — تشمل توفير قطع الغيار الأصلية، وتأمين الصيانات الاحترافية بجميع أنواعها، وتعديل السيارات باحترافية عالية، وتجهيز مراكز الصيانة بالكامل."
+                text={aboutData.storyParagraph1}
                 className="text-gray-600 leading-relaxed mb-4"
               />
               <RevealOnScroll direction="up" delay={0.4}>
                 <p className="text-gray-600 leading-relaxed mb-4">
-                  مقرّنا في حمص - تل الشور، ونخدم عملاءنا من الشركات والمؤسسات محلياً ودولياً. نعتمد على فريق فني متخصص وبرمجيات ومعدات رسمية معتمدة وشراكات مع موردين دوليين.
+                  {aboutData.storyParagraph2}
                 </p>
               </RevealOnScroll>
               <RevealOnScroll direction="up" delay={0.6}>
                 <p className="text-gray-600 leading-relaxed">
-                  نسعى لأن نكون الشريك الأول والأكثر موثوقية للشركات التي تمتلك أساطيل من سيارات VAG، بتقديم حلول صيانة وقطع غيار بعقود مرنة وجودة لا تُضاهى.
+                  {aboutData.storyParagraph3}
                 </p>
               </RevealOnScroll>
             </div>
@@ -104,9 +101,9 @@ export default function AboutPage() {
               >
                 <Eye className="w-6 h-6 text-white" />
               </motion.div>
-              <h3 className="text-xl font-bold text-white mb-3">رؤيتنا</h3>
+              <h3 className="text-xl font-bold text-white mb-3">{aboutData.visionTitle}</h3>
               <p className="text-gray-400 leading-relaxed">
-                أن نكون الشريك الإقليمي الأول في خدمات سيارات VAG، مع توسّع مستمر في الشراكات الدولية وتقديم حلول مبتكرة للشركات والمؤسسات.
+                {aboutData.visionText}
               </p>
             </GlowCard>
           </RevealOnScroll>
@@ -119,9 +116,9 @@ export default function AboutPage() {
               >
                 <Target className="w-6 h-6 text-white" />
               </motion.div>
-              <h3 className="text-xl font-bold text-white mb-3">مهمتنا</h3>
+              <h3 className="text-xl font-bold text-white mb-3">{aboutData.missionTitle}</h3>
               <p className="text-gray-400 leading-relaxed">
-                تقديم قطع غيار أصلية وخدمات صيانة وتعديل وتجهيز مراكز متخصصة لسيارات VAG بأعلى معايير الجودة، مع التركيز على بناء شراكات طويلة الأمد.
+                {aboutData.missionText}
               </p>
             </GlowCard>
           </RevealOnScroll>
