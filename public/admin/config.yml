@@ -8,14 +8,14 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
-  - name: "pages"
-    label: "صفحات الموقع"
+  - name: "home-page"
+    label: "الصفحة الرئيسية"
     files:
       - name: "home"
-        label: "الصفحة الرئيسية"
+        label: "محتوى الصفحة الرئيسية"
         file: "content/home.json"
         fields:
-          - { label: "صورة الخلفية الرئيسية (رابط)", name: "heroImage", widget: "string", hint: "رابط صورة خلفية القسم الأول" }
+          - { label: "صورة الخلفية (رابط)", name: "heroImage", widget: "string", hint: "رابط صورة خلفية القسم الأول" }
           - { label: "العنوان الرئيسي", name: "heroTitle", widget: "string" }
           - { label: "العلامات التجارية", name: "heroBrands", widget: "string" }
           - { label: "الوصف التعريفي", name: "heroDescription", widget: "text" }
@@ -39,8 +39,11 @@ collections:
           - { label: "وصف قسم الشراكة", name: "ctaDescription", widget: "text" }
           - { label: "نص زر الشراكة", name: "ctaButton", widget: "string" }
 
+  - name: "about-page"
+    label: "صفحة من نحن"
+    files:
       - name: "about"
-        label: "صفحة من نحن"
+        label: "محتوى صفحة من نحن"
         file: "content/about.json"
         fields:
           - { label: "عنوان الصفحة", name: "pageTitle", widget: "string" }
@@ -60,8 +63,11 @@ collections:
               - { label: "العنوان", name: "title", widget: "string" }
               - { label: "الوصف", name: "desc", widget: "text" }
 
+  - name: "contact-info"
+    label: "معلومات التواصل"
+    files:
       - name: "contact"
-        label: "معلومات التواصل"
+        label: "بيانات التواصل"
         file: "content/contact.json"
         fields:
           - { label: "العنوان", name: "address", widget: "string", hint: "عنوان الورشة" }
@@ -70,7 +76,7 @@ collections:
           - { label: "ساعات العمل", name: "workingHours", widget: "string" }
 
   - name: "services"
-    label: "الخدمات (صفحة الخدمات)"
+    label: "الخدمات"
     folder: "content/services"
     create: true
     slug: "{{slug}}"
