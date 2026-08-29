@@ -206,7 +206,7 @@ export default function ServicesPage() {
 
       {/* Services */}
       <div className="max-w-7xl mx-auto px-4 space-y-16">
-        <div>
+        <div id="individuals" className="scroll-mt-24">
           <RevealOnScroll direction="up">
             <h2 className="text-2xl md:text-3xl font-black text-dark mb-10 flex items-center gap-3">
               <span className="w-10 h-1 bg-red-600 rounded-full inline-block"></span>
@@ -218,7 +218,7 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        <div>
+        <div id="corporate" className="scroll-mt-24">
           <RevealOnScroll direction="up">
             <h2 className="text-2xl md:text-3xl font-black text-dark mb-10 flex items-center gap-3">
               <span className="w-10 h-1 bg-red-600 rounded-full inline-block"></span>
