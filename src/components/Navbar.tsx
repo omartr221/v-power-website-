@@ -3,6 +3,34 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 
+const servicesDropdown = [
+  {
+    label: "للأفراد ومالكي السيارات",
+    href: "/services#individuals",
+    desc: "قطع غيار، صيانة، تعديل الأداء"
+  },
+  {
+    label: "للشركات والمستثمرين",
+    href: "/services#corporate",
+    desc: "تجهيز مراكز الصيانة"
+  },
+  {
+    label: "التدريب والتوظيف",
+    href: "/training",
+    desc: "برامج تدريبية ومنصة توظيف ذكية"
+  },
+  {
+    label: "نظام ERP",
+    href: "/erp",
+    desc: "استشارات إدارية ونظام متكامل"
+  },
+  {
+    label: "المدونة والأخبار",
+    href: "/blog",
+    desc: "مقالات تقنية وأخبار الشركة"
+  }
+];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -49,26 +77,24 @@ export default function Navbar() {
 
               {servicesOpen && (
                 <div
-                  className="absolute top-full right-0 mt-2 w-52 bg-[#1e293b] border border-red-600/20 rounded-xl shadow-xl overflow-hidden"
+                  className="absolute top-full right-0 mt-2 w-64 bg-[#1e293b] border border-red-600/20 rounded-xl shadow-xl overflow-hidden"
                   onMouseEnter={handleServicesEnter}
                   onMouseLeave={handleServicesLeave}
                 >
-                  <Link
-                    href="/services#individuals"
-                    className="flex items-center gap-2 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors border-b border-red-600/10"
-                    onClick={() => setServicesOpen(false)}
-                  >
-                    <span className="w-2 h-2 bg-red-500 rounded-full shrink-0"></span>
-                    للأفراد ومالكي السيارات
-                  </Link>
-                  <Link
-                    href="/services#corporate"
-                    className="flex items-center gap-2 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                    onClick={() => setServicesOpen(false)}
-                  >
-                    <span className="w-2 h-2 bg-red-500 rounded-full shrink-0"></span>
-                    للشركات والمستثمرين
-                  </Link>
+                  {servicesDropdown.map((item, i) => (
+                    <Link
+                      key={i}
+                      href={item.href}
+                      className={`flex flex-col px-4 py-3 text-sm hover:bg-white/5 transition-colors ${i < servicesDropdown.length - 1 ? "border-b border-red-600/10" : ""}`}
+                      onClick={() => setServicesOpen(false)}
+                    >
+                      <span className="flex items-center gap-2 text-gray-200 font-medium">
+                        <span className="w-1.5 h-1.5 bg-red-500 rounded-full shrink-0"></span>
+                        {item.label}
+                      </span>
+                      <span className="text-gray-500 text-xs mt-0.5 mr-3.5">{item.desc}</span>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
@@ -122,20 +148,16 @@ export default function Navbar() {
               </button>
               {mobileServicesOpen && (
                 <div className="mr-4 mt-1 border-r-2 border-red-600/30 space-y-1 pr-3">
-                  <Link
-                    href="/services#individuals"
-                    onClick={() => { setIsOpen(false); setMobileServicesOpen(false); }}
-                    className="block py-2 px-3 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors text-sm"
-                  >
-                    للأفراد ومالكي السيارات
-                  </Link>
-                  <Link
-                    href="/services#corporate"
-                    onClick={() => { setIsOpen(false); setMobileServicesOpen(false); }}
-                    className="block py-2 px-3 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors text-sm"
-                  >
-                    للشركات والمستثمرين
-                  </Link>
+                  {servicesDropdown.map((item, i) => (
+                    <Link
+                      key={i}
+                      href={item.href}
+                      onClick={() => { setIsOpen(false); setMobileServicesOpen(false); }}
+                      className="block py-2 px-3 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors text-sm"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
