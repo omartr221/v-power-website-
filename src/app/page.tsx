@@ -1,13 +1,12 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Cog, ShieldCheck, Gauge, Wrench, ChevronLeft, CheckCircle2 } from "lucide-react";
-import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, TextReveal, GlowCard, MagneticHover, ParallaxSection } from "@/components/MotionElements";
+import { Cog, ShieldCheck, Gauge, Wrench, GraduationCap, BarChart2, ChevronLeft } from "lucide-react";
+import { RevealOnScroll, StaggerContainer, StaggerItem, GlowCard, MagneticHover } from "@/components/MotionElements";
 import homeData from "../../content/home.json";
 
-const iconMap = [Cog, ShieldCheck, Gauge, Wrench];
+const iconMap = [Cog, ShieldCheck, Gauge, Wrench, GraduationCap, BarChart2];
 const services = homeData.services.map((s, i) => ({ ...s, icon: iconMap[i] || Wrench }));
-const strengths = homeData.strengths;
 
 export default function HomePage() {
   return (
@@ -25,12 +24,10 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/60 to-black/70"></div>
         </div>
-        {/* Morphing blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-10 right-10 w-72 h-72 bg-red-600/10 morphing-blob blur-[80px]"></div>
           <div className="absolute bottom-10 left-10 w-96 h-96 bg-gray-500/10 morphing-blob blur-[100px]" style={{animationDelay: '-4s'}}></div>
         </div>
-        {/* Animated particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(12)].map((_, i) => (
             <div key={i} className="particle" style={{
@@ -77,13 +74,26 @@ export default function HomePage() {
               {homeData.heroBrands}
             </motion.p>
             <motion.p
-              className="text-gray-400 max-w-2xl mx-auto text-base leading-relaxed mb-10"
+              className="text-gray-400 max-w-3xl mx-auto text-base leading-relaxed mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              {homeData.heroDescription}
+              {homeData.heroDescriptionIntro}
             </motion.p>
+            <div className="max-w-3xl mx-auto text-gray-400 text-base leading-relaxed mb-10">
+              {homeData.heroDescriptionLines.map((line, i) => (
+                <motion.p
+                  key={i}
+                  className="mb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.3 + i * 0.1 }}
+                >
+                  {line}
+                </motion.p>
+              ))}
+            </div>
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 30 }}
@@ -112,7 +122,6 @@ export default function HomePage() {
         <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-[#f8f7f4] to-transparent"></div>
       </section>
 
-      {/* Shimmer divider */}
       <div className="shimmer-line"></div>
 
       {/* Services Overview */}
@@ -123,10 +132,10 @@ export default function HomePage() {
               <p className="text-red-600 font-bold text-sm mb-3">ما نقدّمه</p>
               <h2 className="text-3xl md:text-5xl font-black text-dark mb-5">{homeData.servicesTitle}</h2>
               <div className="accent-divider w-20 mx-auto mb-5"></div>
-              <p className="text-gray-500 max-w-2xl mx-auto text-lg">{homeData.servicesSubtitle}</p>
+              <p className="text-gray-500 max-w-3xl mx-auto text-lg">{homeData.servicesSubtitle}</p>
             </div>
           </RevealOnScroll>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.15}>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.15}>
             {services.map((service, i) => {
               const Icon = service.icon;
               return (
@@ -136,7 +145,14 @@ export default function HomePage() {
                       <Icon className="w-8 h-8 text-red-500 group-hover:text-white transition-colors duration-500" />
                     </div>
                     <h3 className="text-lg font-bold text-dark mb-3 group-hover:text-red-600 transition-colors">{service.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{service.desc}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-3">{service.desc}</p>
+                    {service.bullets && service.bullets.length > 0 && (
+                      <ul className="text-right space-y-2 text-gray-500 text-sm leading-relaxed list-disc list-inside">
+                        {service.bullets.map((bullet, j) => (
+                          <li key={j}>{bullet}</li>
+                        ))}
+                      </ul>
+                    )}
                   </GlowCard>
                 </StaggerItem>
               );
@@ -157,87 +173,6 @@ export default function HomePage() {
                 </motion.span>
               </Link>
             </div>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {/* Why Us */}
-      <section className="py-28 bg-dark text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(220,38,38,0.4) 1px, transparent 0)', backgroundSize: '50px 50px'}}></div>
-        </div>
-        {/* Floating blobs */}
-        <div className="absolute top-0 left-0 w-80 h-80 bg-red-600/5 morphing-blob blur-[60px]"></div>
-        <div className="absolute bottom-0 right-0 w-72 h-72 bg-red-600/5 morphing-blob blur-[60px]" style={{animationDelay: '-3s'}}></div>
-        <div className="relative max-w-7xl mx-auto px-4">
-          <RevealOnScroll direction="up">
-            <div className="text-center mb-16">
-              <p className="text-red-500 font-bold text-sm mb-3">لماذا V POWER</p>
-              <h2 className="text-3xl md:text-4xl font-black mb-5">{homeData.whyUsTitle}</h2>
-              <div className="accent-divider w-20 mx-auto mb-5"></div>
-              <TextReveal
-                text={homeData.whyUsDescription}
-                className="text-gray-400 max-w-2xl mx-auto"
-              />
-            </div>
-          </RevealOnScroll>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
-            {strengths.map((item, i) => (
-              <StaggerItem key={i}>
-                <motion.div
-                  className="flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-red-500/10 rounded-xl p-5 hover:border-red-500/30 hover:bg-white/10 transition-all duration-500 group cursor-default"
-                  whileHover={{ scale: 1.03, x: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <CheckCircle2 className="w-6 h-6 text-red-500 shrink-0 mt-0.5" />
-                  </motion.div>
-                  <span className="text-gray-300 group-hover:text-white transition-colors">{item}</span>
-                </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Shimmer divider */}
-      <div className="shimmer-line"></div>
-
-      {/* Corporate CTA */}
-      <section className="py-24 bg-gradient-to-b from-navy to-dark text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <motion.div
-            className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-red-600 rounded-full blur-[200px]"
-            animate={{
-              x: [0, 50, 0, -50, 0],
-              y: [0, -30, 0, 30, 0],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4 text-center">
-          <ScalePop>
-            <p className="text-red-500 font-bold text-sm mb-4">شراكة احترافية</p>
-            <h2 className="text-3xl md:text-5xl font-black mb-5">{homeData.ctaTitle}</h2>
-            <div className="accent-divider w-24 mx-auto mb-6"></div>
-          </ScalePop>
-          <RevealOnScroll direction="up" delay={0.3}>
-            <p className="text-gray-400 mb-12 text-lg max-w-2xl mx-auto leading-relaxed">
-              {homeData.ctaDescription}
-            </p>
-          </RevealOnScroll>
-          <RevealOnScroll direction="up" delay={0.5}>
-            <MagneticHover>
-              <Link
-                href="/contact"
-                className="inline-block bg-red-600 hover:bg-red-700 text-white px-12 py-4 rounded-lg font-bold text-lg transition-all shadow-xl shadow-red-600/20"
-              >
-                {homeData.ctaButton}
-              </Link>
-            </MagneticHover>
           </RevealOnScroll>
         </div>
       </section>
