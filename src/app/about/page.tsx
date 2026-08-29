@@ -158,6 +158,47 @@ export default function AboutPage() {
           })}
         </StaggerContainer>
       </div>
+
+      {aboutData.extraSections?.map((section, i) => (
+        <div key={i} className="max-w-7xl mx-auto px-4 mb-24">
+          {section.layout !== "cta" && (
+            <RevealOnScroll direction="up">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-black text-dark mb-4">{section.title}</h2>
+                <div className="accent-divider w-16 mx-auto"></div>
+              </div>
+            </RevealOnScroll>
+          )}
+          {section.layout === "cta" ? (
+            <RevealOnScroll direction="up" delay={0.2}>
+              <div className="text-center bg-dark rounded-2xl p-10 text-white">
+                <p className="text-xl font-bold">{section.title}</p>
+              </div>
+            </RevealOnScroll>
+          ) : (
+            <RevealOnScroll direction="up" delay={0.2}>
+              <div>
+                {section.intro && (
+                  <p className="text-gray-600 leading-relaxed mb-4">{section.intro}</p>
+                )}
+                {section.layout === "bullets" ? (
+                  <ul className="space-y-3 text-gray-600 leading-relaxed list-disc list-inside">
+                    {section.items.map((item, j) => (
+                      <li key={j}>{item}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="space-y-4 text-gray-600 leading-relaxed">
+                    {section.items.map((item, j) => (
+                      <p key={j}>{item}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </RevealOnScroll>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
