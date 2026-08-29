@@ -66,7 +66,7 @@ export default function AboutPage() {
                 />
                 <div className="accent-divider w-16 mx-auto mb-4"></div>
                 <p className="text-red-500 font-bold text-lg mb-2">VAG Specialist</p>
-                <p className="text-gray-400 text-sm">حمص — تل الشور، سوريا</p>
+                <p className="text-gray-400 text-sm">سوريا - حمص - تقاطع تل الشور</p>
                 <StaggerContainer className="mt-6 flex flex-wrap justify-center gap-3" staggerDelay={0.1} delay={0.5}>
                   {["Volkswagen", "Audi", "Skoda", "Seat", "Porsche"].map((brand, i) => (
                     <StaggerItem key={i}>
