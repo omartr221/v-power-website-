@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, MapPin, MessageCircle } from "lucide-react";
+import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
 import contactData from "../../content/contact.json";
 
 const InstagramIcon = () => (
@@ -50,6 +50,10 @@ export default function Footer() {
             <div className="flex items-center gap-3 text-sm">
               <Phone className="w-5 h-5 text-red-500 shrink-0" />
               <a href={`tel:${contactData.phone.replace(/\s/g, '')}`} className="hover:text-red-400 transition-colors" dir="ltr">{contactData.phone}</a>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Mail className="w-5 h-5 text-blue-400 shrink-0" />
+              <a href={`mailto:${contactData.email}`} className="hover:text-blue-400 transition-colors" dir="ltr">{contactData.email}</a>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <MessageCircle className="w-5 h-5 text-green-500 shrink-0" />

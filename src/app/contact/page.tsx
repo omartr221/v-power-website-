@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Phone, MapPin, MessageCircle } from "lucide-react";
+import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
 import contactData from "../../../content/contact.json";
 
@@ -17,6 +17,7 @@ const FacebookIcon = () => (
 );
 
 const contactInfo = [
+  { icon: Mail, title: "البريد الإلكتروني", value: contactData.email, href: `mailto:${contactData.email}`, ltr: true },
   { icon: Phone, title: "هاتف", value: contactData.phone, href: `tel:${contactData.phone.replace(/\s/g, '')}`, ltr: true },
   { icon: MessageCircle, title: "واتساب", value: "تواصل عبر واتساب", href: `https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}` },
   { icon: MapPin, title: "موقعنا", value: contactData.address, href: contactData.mapsUrl },
@@ -138,31 +139,47 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-dark mb-6">أرسل رسالة</h2>
             </RevealOnScroll>
             <RevealOnScroll direction="left" delay={0.2}>
-              <motion.div
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8"
-                whileHover={{ boxShadow: "0 20px 60px -15px rgba(0,0,0,0.1)" }}
-                transition={{ duration: 0.3 }}
               >
+                <input type="hidden" name="form-name" value="contact" />
                 <div className="space-y-5">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">الاسم الكامل</label>
                     <input
                       type="text"
+                      name="name"
                       placeholder="أدخل اسمك"
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
+                      required
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">رقم الهاتف</label>
                     <input
                       type="tel"
+                      name="phone"
                       placeholder="09XXXXXXXX"
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني (اختياري)</label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="example@email.com"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
+                      dir="ltr"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">نوع الخدمة</label>
-                    <select className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm bg-white">
+                    <select name="service" className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm bg-white">
                       <option value="">اختر نوع الخدمة</option>
                       <option value="parts">قطع غيار</option>
                       <option value="maintenance">صيانة</option>
@@ -174,18 +191,20 @@ export default function ContactPage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">الرسالة</label>
                     <textarea
+                      name="message"
                       rows={4}
                       placeholder="اكتب رسالتك هنا..."
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm resize-none"
+                      required
                     ></textarea>
                   </div>
                   <MagneticHover>
-                    <button className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold transition-all text-lg">
+                    <button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold transition-all text-lg">
                       إرسال الرسالة
                     </button>
                   </MagneticHover>
                 </div>
-              </motion.div>
+              </form>
             </RevealOnScroll>
           </div>
         </div>
