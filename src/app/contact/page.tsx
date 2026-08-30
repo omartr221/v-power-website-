@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
@@ -29,6 +30,26 @@ const socialInfo = [
 ];
 
 export default function ContactPage() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("sending");
+    const formData = new FormData(e.currentTarget);
+    try {
+      const res = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("sent");
+      e.currentTarget.reset();
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <div className="py-16 bg-gradient-to-b from-[#f8f7f4] to-white overflow-hidden">
       {/* Header */}
@@ -141,8 +162,7 @@ export default function ContactPage() {
             <RevealOnScroll direction="left" delay={0.2}>
               <form
                 name="contact"
-                method="POST"
-                data-netlify="true"
+                onSubmit={handleSubmit}
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8"
               >
                 <input type="hidden" name="form-name" value="contact" />
@@ -199,10 +219,20 @@ export default function ContactPage() {
                     ></textarea>
                   </div>
                   <MagneticHover>
-                    <button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold transition-all text-lg">
-                      إرسال الرسالة
+                    <button
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-3 rounded-lg font-bold transition-all text-lg"
+                    >
+                      {status === "sending" ? "جاري الإرسال..." : "إرسال الرسالة"}
                     </button>
                   </MagneticHover>
+                  {status === "sent" && (
+                    <p className="text-green-600 text-sm text-center font-medium">تم إرسال رسالتك بنجاح، سنتواصل معك قريباً</p>
+                  )}
+                  {status === "error" && (
+                    <p className="text-red-600 text-sm text-center font-medium">حدث خطأ، يرجى المحاولة مرة أخرى أو التواصل عبر واتساب</p>
+                  )}
                 </div>
               </form>
             </RevealOnScroll>
