@@ -58,7 +58,7 @@ export default function AboutPage() {
               </div>
               <div className="relative">
                 <motion.img
-                  src="/logo.png"
+                  src="/logo-v2.png"
                   alt="V POWER TUNING"
                   className="h-24 w-auto mx-auto mb-6 drop-shadow-xl"
                   animate={{ y: [0, -8, 0] }}

@@ -46,7 +46,7 @@ export default function HomePage() {
               transition={{ duration: 1, type: "spring", stiffness: 100 }}
             >
               <img
-                src="/logo.png"
+                src="/logo-v2.png"
                 alt="V POWER TUNING"
                 className="h-28 md:h-48 w-auto mx-auto mb-8 drop-shadow-2xl animate-float"
               />
