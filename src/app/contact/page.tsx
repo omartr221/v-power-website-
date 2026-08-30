@@ -1,14 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
-import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, MapPin, MessageCircle } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
 import contactData from "../../../content/contact.json";
 
 const contactInfo = [
   { icon: Phone, title: "هاتف", value: contactData.phone, href: `tel:${contactData.phone.replace(/\s/g, '')}` },
   { icon: MessageCircle, title: "واتساب", value: "تواصل عبر واتساب", href: `https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}` },
-  { icon: MapPin, title: "العنوان", value: contactData.address, href: "#" },
-  { icon: Clock, title: "أوقات العمل", value: contactData.workingHours, href: "#" },
+  { icon: MapPin, title: "موقعنا", value: contactData.address, href: contactData.mapsUrl },
 ];
 
 export default function ContactPage() {

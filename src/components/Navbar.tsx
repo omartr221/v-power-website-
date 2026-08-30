@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 const servicesDropdown = [
   {
@@ -13,21 +13,6 @@ const servicesDropdown = [
     label: "للشركات والمستثمرين",
     href: "/services#corporate",
     desc: "تجهيز مراكز الصيانة"
-  },
-  {
-    label: "التدريب والتوظيف",
-    href: "/training",
-    desc: "برامج تدريبية ومنصة توظيف ذكية"
-  },
-  {
-    label: "نظام ERP",
-    href: "/erp",
-    desc: "استشارات إدارية ونظام متكامل"
-  },
-  {
-    label: "المدونة والأخبار",
-    href: "/blog",
-    desc: "مقالات تقنية وأخبار الشركة"
   }
 ];
 
@@ -106,13 +91,6 @@ export default function Navbar() {
               تواصل معنا
             </Link>
 
-            <a
-              href="tel:+963989280600"
-              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold"
-            >
-              <Phone className="w-4 h-4" />
-              اتصل بنا
-            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -176,12 +154,7 @@ export default function Navbar() {
             >
               تواصل معنا
             </Link>
-            <a
-              href="tel:+963989280600"
-              className="block w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-center font-bold mt-2"
-            >
-              اتصل بنا
-            </a>
+
           </div>
         </div>
       )}
