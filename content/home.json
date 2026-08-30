@@ -10,7 +10,8 @@
   "heroButton1": "اكتشف خدماتنا",
   "heroButton2": "تعرّف علينا",
   "servicesTitle": "خدماتنا الأساسية",
-  "servicesSubtitle": "نخدم الشركات والأفراد بنفس المستوى من التخصص والاحترافية عبر توفير حلول متكاملة لسيارات Volkswagen • Audi • Skoda • Seat • Porsche",
+  "servicesSubtitle": "نخدم الشركات والأفراد بنفس المستوى من التخصص والاحترافية عبر توفير حلول متكاملة لسيارات",
+  "servicesBrands": "Volkswagen • Audi • Skoda • Seat • Porsche",
   "services": [
     {
       "title": "قطع غيار أصلية",

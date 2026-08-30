@@ -164,10 +164,10 @@ export default function ContactPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">نوع الخدمة</label>
                     <select className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm bg-white">
                       <option value="">اختر نوع الخدمة</option>
-                      <option value="parts">قطع غيار أصلية</option>
-                      <option value="maintenance">صيانة احترافية</option>
-                      <option value="tuning">تعديل سيارات</option>
-                      <option value="center">تجهيز مركز صيانة</option>
+                      <option value="parts">قطع غيار</option>
+                      <option value="maintenance">صيانة</option>
+                      <option value="training">تدريب</option>
+                      <option value="consulting">استشارات إدارية</option>
                       <option value="other">أخرى</option>
                     </select>
                   </div>
