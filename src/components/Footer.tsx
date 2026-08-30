@@ -21,7 +21,7 @@ export default function Footer() {
         {/* About */}
         <div>
           <div className="mb-4">
-            <img src="/logo-v2.png" alt="V POWER TUNING" className="h-16 w-auto" />
+            <img src="/logo-v2.png" alt="V POWER TUNING" className="h-32 w-auto -my-6" />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed">
             الشريك المتكامل والمعتمد لسيارات مجموعة VAG من قطع الغيار الأصلية إلى تجهيز مراكز الصيانة بالبرامج والمعدات الرسمية.

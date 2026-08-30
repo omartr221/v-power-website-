@@ -48,7 +48,7 @@ export default function HomePage() {
               <img
                 src="/logo-v2.png"
                 alt="V POWER TUNING"
-                className="h-28 md:h-48 w-auto mx-auto mb-8 drop-shadow-2xl animate-float"
+                className="h-56 md:h-96 w-auto mx-auto -my-8 drop-shadow-2xl animate-float"
               />
             </motion.div>
             <motion.div
