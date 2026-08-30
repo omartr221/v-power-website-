@@ -60,7 +60,7 @@ export default function AboutPage() {
                 <motion.img
                   src="/logo-v2.png"
                   alt="V POWER TUNING"
-                  className="h-48 w-auto mx-auto -my-6 drop-shadow-xl"
+                  className="h-24 w-auto mx-auto mb-6 drop-shadow-xl"
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 />
