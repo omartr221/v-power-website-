@@ -15,6 +15,8 @@ const dictionaries = {
     nav: {
       home: "الرئيسية",
       services: "خدماتنا",
+      erp: "نظام ERP",
+      training: "التدريب والتوظيف",
       about: "من نحن",
       contact: "تواصل معنا",
       openMenu: "فتح القائمة",
@@ -64,6 +66,8 @@ const dictionaries = {
     nav: {
       home: "Home",
       services: "Services",
+      erp: "ERP System",
+      training: "Training & Recruitment",
       about: "About Us",
       contact: "Contact",
       openMenu: "Open menu",

@@ -47,7 +47,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-5">
             <Link href={href("/")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
               {ui.nav.home}
             </Link>
@@ -90,6 +90,12 @@ export default function Navbar({ locale }: { locale: Locale }) {
               )}
             </div>
 
+            <Link href={href("/erp")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
+              {ui.nav.erp}
+            </Link>
+            <Link href={href("/training")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
+              {ui.nav.training}
+            </Link>
             <Link href={href("/about")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
               {ui.nav.about}
             </Link>
@@ -101,7 +107,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
           </div>
 
           {/* Mobile controls */}
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-3 lg:hidden">
             {languageToggle()}
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -116,7 +122,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-[#1e293b] border-t border-red-600/20">
+        <div className="lg:hidden bg-[#1e293b] border-t border-red-600/20">
           <div className="px-4 py-3 space-y-2">
             <Link
               href={href("/")}
@@ -151,6 +157,20 @@ export default function Navbar({ locale }: { locale: Locale }) {
               )}
             </div>
 
+            <Link
+              href={href("/erp")}
+              onClick={() => setIsOpen(false)}
+              className="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+            >
+              {ui.nav.erp}
+            </Link>
+            <Link
+              href={href("/training")}
+              onClick={() => setIsOpen(false)}
+              className="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+            >
+              {ui.nav.training}
+            </Link>
             <Link
               href={href("/about")}
               onClick={() => setIsOpen(false)}
