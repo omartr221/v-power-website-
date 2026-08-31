@@ -44,6 +44,17 @@ export function middleware(req: NextRequest) {
       ? NextResponse.next()
       : NextResponse.redirect(new URL(targetPath, req.url));
 
+  // Vary the edge cache by language so English and Arabic visitors don't
+  // accidentally share the same cached HTML.
+  response.headers.set("Vary", "Accept-Language, Cookie");
+  const netlifyVary = response.headers.get("Netlify-Vary") || "";
+  if (!netlifyVary.includes("header=accept-language")) {
+    response.headers.set(
+      "Netlify-Vary",
+      netlifyVary ? `${netlifyVary},header=accept-language` : "header=accept-language"
+    );
+  }
+
   if (!cookie) {
     response.cookies.set(COOKIE_NAME, preferred, {
       path: "/",
