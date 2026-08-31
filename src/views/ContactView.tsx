@@ -3,7 +3,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
-import contactData from "../../../content/contact.json";
+import { type Locale } from "@/i18n/config";
+import { getContactContent } from "@/i18n/content";
+import { getContactStrings } from "@/i18n/pages/contact";
 
 const InstagramIcon = () => (
   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -17,20 +19,23 @@ const FacebookIcon = () => (
   </svg>
 );
 
-const contactInfo = [
-  { icon: Mail, title: "البريد الإلكتروني", value: contactData.email, href: `mailto:${contactData.email}`, ltr: true },
-  { icon: Phone, title: "هاتف", value: contactData.phone, href: `tel:${contactData.phone.replace(/\s/g, '')}`, ltr: true },
-  { icon: MessageCircle, title: "واتساب", value: "تواصل عبر واتساب", href: `https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}` },
-  { icon: MapPin, title: "موقعنا", value: contactData.address, href: contactData.mapsUrl },
-];
-
-const socialInfo = [
-  { IconComp: InstagramIcon, title: "إنستغرام", href: contactData.instagram, color: "text-pink-500 group-hover:bg-pink-600" },
-  { IconComp: FacebookIcon, title: "فيسبوك", href: contactData.facebook, color: "text-blue-400 group-hover:bg-blue-600" },
-];
-
-export default function ContactPage() {
+export default function ContactView({ locale }: { locale: Locale }) {
+  const contactData = getContactContent(locale);
+  const t = getContactStrings(locale);
+  const isRtl = locale === "ar";
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const contactInfo = [
+    { icon: Mail, title: t.info.email, value: contactData.email, href: `mailto:${contactData.email}`, ltr: true },
+    { icon: Phone, title: t.info.phone, value: contactData.phone, href: `tel:${contactData.phone.replace(/\s/g, '')}`, ltr: true },
+    { icon: MessageCircle, title: t.info.whatsapp, value: t.info.whatsappValue, href: `https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}` },
+    { icon: MapPin, title: t.info.location, value: contactData.address, href: contactData.mapsUrl },
+  ];
+
+  const socialInfo = [
+    { IconComp: InstagramIcon, title: t.social.instagram, href: contactData.instagram, color: "text-pink-500 group-hover:bg-pink-600" },
+    { IconComp: FacebookIcon, title: t.social.facebook, href: contactData.facebook, color: "text-blue-400 group-hover:bg-blue-600" },
+  ];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,11 +60,11 @@ export default function ContactPage() {
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 text-center mb-16">
         <RevealOnScroll direction="down">
-          <p className="text-red-600 font-bold text-sm mb-3">تواصل معنا</p>
-          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">نحن هنا لمساعدتكم</h1>
+          <p className="text-red-600 font-bold text-sm mb-3">{t.eyebrow}</p>
+          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">{t.title}</h1>
           <div className="accent-divider w-20 mx-auto mb-5"></div>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-            تواصلوا معنا بأي طريقة تناسبكم وسنرد عليكم في أقرب وقت
+            {t.subtitle}
           </p>
         </RevealOnScroll>
       </div>
@@ -68,8 +73,8 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div>
-            <RevealOnScroll direction="right">
-              <h2 className="text-2xl font-bold text-dark mb-6">معلومات التواصل</h2>
+            <RevealOnScroll direction={isRtl ? "right" : "left"}>
+              <h2 className="text-2xl font-bold text-dark mb-6">{t.infoTitle}</h2>
             </RevealOnScroll>
             <StaggerContainer className="space-y-4" staggerDelay={0.12}>
               {contactInfo.map((info, i) => {
@@ -80,7 +85,7 @@ export default function ContactPage() {
                       href={info.href}
                       target={info.href.startsWith("http") ? "_blank" : undefined}
                       className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm group accent-glow"
-                      whileHover={{ x: -8, boxShadow: "0 10px 40px -10px rgba(0,0,0,0.15)" }}
+                      whileHover={{ x: isRtl ? -8 : 8, boxShadow: "0 10px 40px -10px rgba(0,0,0,0.15)" }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
                       <motion.div
@@ -138,15 +143,15 @@ export default function ContactPage() {
                   >
                     <MessageCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
                   </motion.div>
-                  <h3 className="text-lg font-bold text-white mb-2">أسرع طريقة للتواصل</h3>
-                  <p className="text-gray-400 text-sm mb-4">أرسلوا لنا رسالة عبر واتساب وسنرد عليكم فوراً</p>
+                  <h3 className="text-lg font-bold text-white mb-2">{t.whatsappCta.title}</h3>
+                  <p className="text-gray-400 text-sm mb-4">{t.whatsappCta.desc}</p>
                   <MagneticHover>
                     <a
                       href="https://wa.me/963989280600"
                       target="_blank"
                       className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold transition-all"
                     >
-                      تواصل عبر واتساب
+                      {t.whatsappCta.button}
                     </a>
                   </MagneticHover>
                 </div>
@@ -156,10 +161,10 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div>
-            <RevealOnScroll direction="left">
-              <h2 className="text-2xl font-bold text-dark mb-6">أرسل رسالة</h2>
+            <RevealOnScroll direction={isRtl ? "left" : "right"}>
+              <h2 className="text-2xl font-bold text-dark mb-6">{t.form.title}</h2>
             </RevealOnScroll>
-            <RevealOnScroll direction="left" delay={0.2}>
+            <RevealOnScroll direction={isRtl ? "left" : "right"} delay={0.2}>
               <form
                 name="contact"
                 onSubmit={handleSubmit}
@@ -168,52 +173,52 @@ export default function ContactPage() {
                 <input type="hidden" name="form-name" value="contact" />
                 <div className="space-y-5">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">الاسم الكامل</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.nameLabel}</label>
                     <input
                       type="text"
                       name="name"
-                      placeholder="أدخل اسمك"
+                      placeholder={t.form.namePlaceholder}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">رقم الهاتف</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.phoneLabel}</label>
                     <input
                       type="tel"
                       name="phone"
-                      placeholder="09XXXXXXXX"
+                      placeholder={t.form.phonePlaceholder}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني (اختياري)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.emailLabel}</label>
                     <input
                       type="email"
                       name="email"
-                      placeholder="example@email.com"
+                      placeholder={t.form.emailPlaceholder}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
                       dir="ltr"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">نوع الخدمة</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.serviceLabel}</label>
                     <select name="service" className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm bg-white">
-                      <option value="">اختر نوع الخدمة</option>
-                      <option value="parts">قطع غيار</option>
-                      <option value="maintenance">صيانة</option>
-                      <option value="training">تدريب</option>
-                      <option value="consulting">استشارات إدارية</option>
-                      <option value="other">أخرى</option>
+                      <option value="">{t.form.servicePlaceholder}</option>
+                      <option value="parts">{t.form.serviceOptions.parts}</option>
+                      <option value="maintenance">{t.form.serviceOptions.maintenance}</option>
+                      <option value="training">{t.form.serviceOptions.training}</option>
+                      <option value="consulting">{t.form.serviceOptions.consulting}</option>
+                      <option value="other">{t.form.serviceOptions.other}</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">الرسالة</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.messageLabel}</label>
                     <textarea
                       name="message"
                       rows={4}
-                      placeholder="اكتب رسالتك هنا..."
+                      placeholder={t.form.messagePlaceholder}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm resize-none"
                       required
                     ></textarea>
@@ -224,14 +229,14 @@ export default function ContactPage() {
                       disabled={status === "sending"}
                       className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-3 rounded-lg font-bold transition-all text-lg"
                     >
-                      {status === "sending" ? "جاري الإرسال..." : "إرسال الرسالة"}
+                      {status === "sending" ? t.form.sending : t.form.submit}
                     </button>
                   </MagneticHover>
                   {status === "sent" && (
-                    <p className="text-green-600 text-sm text-center font-medium">تم إرسال رسالتك بنجاح، سنتواصل معك قريباً</p>
+                    <p className="text-green-600 text-sm text-center font-medium">{t.form.success}</p>
                   )}
                   {status === "error" && (
-                    <p className="text-red-600 text-sm text-center font-medium">حدث خطأ، يرجى المحاولة مرة أخرى أو التواصل عبر واتساب</p>
+                    <p className="text-red-600 text-sm text-center font-medium">{t.form.error}</p>
                   )}
                 </div>
               </form>

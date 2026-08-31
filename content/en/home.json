@@ -1,0 +1,46 @@
+{
+  "heroImage": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1920&q=80",
+  "heroTitle": "Your complete, certified partner for VAG Group vehicles — from genuine spare parts to equipping service centers with official software and equipment.",
+  "heroBrands": "Volkswagen • Audi • Skoda • Seat • Porsche",
+  "heroDescriptionIntro": "At V POWER TUNING we deliver integrated, specialized solutions built on international standards, deep expertise, and AI-powered technology:",
+  "heroDescriptionLines": [
+    "For VAG vehicle owners — genuine spare parts, comprehensive servicing, and performance tuning.",
+    "For business owners and service centers — turnkey setup and full support, from supplying the required equipment and software to technical training services and integrated management systems."
+  ],
+  "heroButton1": "Explore Our Services",
+  "heroButton2": "Get to Know Us",
+  "servicesTitle": "Our Core Services",
+  "servicesSubtitle": "We serve businesses and individuals with the same level of specialization and professionalism, delivering integrated solutions for",
+  "servicesBrands": "Volkswagen • Audi • Skoda • Seat • Porsche",
+  "services": [
+    {
+      "title": "Genuine Spare Parts",
+      "desc": "We supply genuine, certified spare parts for every VAG Group vehicle, guaranteeing the highest standards of quality and performance."
+    },
+    {
+      "title": "Specialized Maintenance Services",
+      "desc": "We provide comprehensive maintenance at our centers, delivered by specialized engineers and technicians using official equipment and software to international standards, with AI-assisted diagnostics for precise fault detection and shorter repair times."
+    },
+    {
+      "title": "Performance Tuning & Vehicle Development",
+      "desc": "We offer engine performance tuning and systems development — measured and safe — to raise your vehicle's efficiency, from everyday driving upgrades through to full circuit race car builds."
+    },
+    {
+      "title": "Turnkey Solutions for Service Centers",
+      "desc": "Committed to serving VAG owners wherever they are, we offer local and international investors a complete package that includes:",
+      "bullets": [
+        "Planning and infrastructure: manufacturer-approved construction blueprints and facility fit-out that meets international workshop standards.",
+        "Specialized equipment and tools: everything a workshop needs — lifts, measuring and repair benches, diagnostic devices, and welding equipment from certified manufacturers.",
+        "Diagnostic software: installation and setup of the latest official diagnostic software such as VCDS and ODIS on dedicated hardware, plus genuine VAS devices ready for immediate operation."
+      ]
+    },
+    {
+      "title": "Technical Training & Recruitment",
+      "desc": "We run certified training programs based on manufacturer curricula, qualify trainees through hands-on practice, then launch them into the job market via an advanced AI-powered digital platform that assesses technical, professional, and personal skills, identifies strengths and weaknesses, and connects qualified trainees with local and international investors seeking skilled technical staff."
+    },
+    {
+      "title": "Management Consulting & ERP Systems",
+      "desc": "We deliver specialized studies to improve service center performance — from organizational structure, job descriptions, and operations management, through to ERP software purpose-built for automotive workshops, managing inventory, accounting, and service tickets with precision and efficiency, supported by advanced AI data analysis to optimize performance and decision-making."
+    }
+  ]
+}

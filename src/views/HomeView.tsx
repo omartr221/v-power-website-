@@ -1,14 +1,22 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Cog, ShieldCheck, Gauge, Wrench, GraduationCap, BarChart2, ChevronLeft } from "lucide-react";
+import { Cog, ShieldCheck, Gauge, Wrench, GraduationCap, BarChart2, ChevronLeft, ChevronRight } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, GlowCard, MagneticHover } from "@/components/MotionElements";
-import homeData from "../../content/home.json";
+import { localeHref, type Locale } from "@/i18n/config";
+import { getHomeContent } from "@/i18n/content";
+import { getUi } from "@/i18n/ui";
 
 const iconMap = [Cog, ShieldCheck, Gauge, Wrench, GraduationCap, BarChart2];
-const services = homeData.services.map((s, i) => ({ ...s, icon: iconMap[i] || Wrench }));
 
-export default function HomePage() {
+export default function HomeView({ locale }: { locale: Locale }) {
+  const homeData = getHomeContent(locale);
+  const ui = getUi(locale);
+  const href = (path: string) => localeHref(locale, path);
+  const isRtl = locale === "ar";
+  const Chevron = isRtl ? ChevronLeft : ChevronRight;
+  const services = homeData.services.map((s, i) => ({ ...s, icon: iconMap[i] || Wrench }));
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
@@ -16,7 +24,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <motion.img
             src={homeData.heroImage}
-            alt="ورشة سيارات"
+            alt={ui.home.heroImageAlt}
             className="w-full h-full object-cover"
             initial={{ scale: 1.2 }}
             animate={{ scale: 1 }}
@@ -102,7 +110,7 @@ export default function HomePage() {
             >
               <MagneticHover>
                 <Link
-                  href="/services"
+                  href={href("/services")}
                   className="bg-red-600 hover:bg-red-700 text-white px-8 py-3.5 rounded-lg font-bold text-lg transition-all shadow-lg shadow-red-600/25 block"
                 >
                   {homeData.heroButton1}
@@ -110,7 +118,7 @@ export default function HomePage() {
               </MagneticHover>
               <MagneticHover>
                 <Link
-                  href="/about"
+                  href={href("/about")}
                   className="border border-gray-400 hover:border-white text-white px-8 py-3.5 rounded-lg font-medium text-lg transition-all hover:bg-white/5 block"
                 >
                   {homeData.heroButton2}
@@ -129,7 +137,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4">
           <RevealOnScroll direction="up">
             <div className="text-center mb-20">
-              <p className="text-red-600 font-bold text-sm mb-3">ما نقدّمه</p>
+              <p className="text-red-600 font-bold text-sm mb-3">{ui.home.eyebrow}</p>
               <h2 className="text-3xl md:text-5xl font-black text-dark mb-5">{homeData.servicesTitle}</h2>
               <div className="accent-divider w-20 mx-auto mb-5"></div>
               <p className="text-gray-500 max-w-3xl mx-auto text-lg">{homeData.servicesSubtitle}</p>
@@ -148,7 +156,7 @@ export default function HomePage() {
                     <h3 className="text-lg font-bold text-dark mb-3 group-hover:text-red-600 transition-colors">{service.title}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed mb-3">{service.desc}</p>
                     {service.bullets && service.bullets.length > 0 && (
-                      <ul className="text-right space-y-2 text-gray-500 text-sm leading-relaxed list-disc list-inside">
+                      <ul className="text-start space-y-2 text-gray-500 text-sm leading-relaxed list-disc list-inside">
                         {service.bullets.map((bullet, j) => (
                           <li key={j}>{bullet}</li>
                         ))}
@@ -162,15 +170,15 @@ export default function HomePage() {
           <RevealOnScroll direction="up" delay={0.8}>
             <div className="text-center mt-14">
               <Link
-                href="/services"
+                href={href("/services")}
                 className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-bold transition-colors text-lg group"
               >
-                المزيد عن خدماتنا
+                {ui.home.moreServices}
                 <motion.span
-                  animate={{ x: [0, -5, 0] }}
+                  animate={{ x: [0, isRtl ? -5 : 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <Chevron className="w-5 h-5" />
                 </motion.span>
               </Link>
             </div>

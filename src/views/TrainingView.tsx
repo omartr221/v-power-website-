@@ -1,72 +1,30 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { GraduationCap, CheckCircle2, Brain, Award, Users, ArrowLeft } from "lucide-react";
+import { GraduationCap, CheckCircle2, Brain, Award, Users, ArrowLeft, ArrowRight } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
+import { localeHref, type Locale } from "@/i18n/config";
+import { getTrainingStrings } from "@/i18n/pages/training";
 
-const trainingPrograms = [
-  {
-    icon: GraduationCap,
-    title: "برامج التدريب الفني",
-    desc: "برامج تدريبية وفق مناهج الشركة الصانعة، تغطي جميع المستويات من المبتدئ إلى المتخصص.",
-    items: [
-      "الصيانة الميكانيكية: محركات، ناقلات الحركة، التعليق، الفرامل.",
-      "التشخيص الإلكتروني: استخدام VCDS، ODIS، وأجهزة VAS الأصلية.",
-      "تعديل الأداء: برمجة ECU من Stage 1 حتى Stage 3.",
-      "أنظمة السيارات الحديثة: الكهرباء، الإلكترونيات، أنظمة ADAS.",
-      "شهادات إتمام تدريب معتمدة لكل دورة."
-    ]
-  },
-  {
-    icon: Brain,
-    title: "منصة التقييم الذكية",
-    desc: "منصة رقمية متطورة مدعومة بالذكاء الاصطناعي لتقييم المتقدمين بشكل شامل وموضوعي.",
-    items: [
-      "جمع بيانات شاملة عن المتقدم: الخبرات، المهارات، المؤهلات العلمية.",
-      "امتحان إلكتروني ذكي يختبر المهارات التقنية والمهنية والشخصية.",
-      "تقييم مستوى الذكاء والقدرات التحليلية حسب متطلبات الوظيفة.",
-      "مقابلة حقيقية لتقييم المتقدم بشكل فعلي بعد الاختبار الإلكتروني.",
-      "تقرير تفصيلي يحدد نقاط القوة والضعف لكل متقدم."
-    ]
-  },
-  {
-    icon: Users,
-    title: "برامج تطوير الكفاءات",
-    desc: "لا نكتفي بالتقييم، بل نعمل على تطوير المتدربين ورفع مستواهم.",
-    items: [
-      "تحديد نقاط الضعف الفردية لكل متدرب.",
-      "برامج تدريبية مكثفة ومخصصة لتقوية نقاط الضعف.",
-      "متابعة مستمرة للتقدم طوال فترة التدريب.",
-      "تقييم دوري لقياس مستوى التحسن.",
-      "دعم المتدربين حتى الوصول للمستوى المطلوب."
-    ]
-  },
-  {
-    icon: Award,
-    title: "منصة التوظيف والربط",
-    desc: "نربط المتدربين المؤهلين بفرص العمل المحلية والدولية بشكل احترافي.",
-    items: [
-      "قاعدة بيانات للكوادر المؤهلة متاحة للشركات والمستثمرين.",
-      "ربط المتدربين المؤهلين بمراكز الصيانة الباحثة عن كفاءات.",
-      "توصيل الكوادر بالمستثمرين المحليين والدوليين.",
-      "دعم المتدرب في عملية التقديم والمقابلات.",
-      "متابعة ما بعد التوظيف لضمان النجاح."
-    ]
-  }
-];
+const iconMap = [GraduationCap, Brain, Users, Award];
 
-export default function TrainingPage() {
+export default function TrainingView({ locale }: { locale: Locale }) {
+  const t = getTrainingStrings(locale);
+  const href = (path: string) => localeHref(locale, path);
+  const isRtl = locale === "ar";
+  const Forward = isRtl ? ArrowLeft : ArrowRight;
+  const trainingPrograms = t.programs.map((program, i) => ({ ...program, icon: iconMap[i] || GraduationCap }));
+
   return (
     <div className="py-16 bg-gradient-to-b from-[#f8f7f4] to-white overflow-hidden">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 text-center mb-16">
         <RevealOnScroll direction="down">
-          <p className="text-red-600 font-bold text-sm mb-3">خدماتنا</p>
-          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">التدريب الفني والتوظيف</h1>
+          <p className="text-red-600 font-bold text-sm mb-3">{t.eyebrow}</p>
+          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">{t.title}</h1>
           <div className="accent-divider w-20 mx-auto mb-5"></div>
           <p className="text-gray-500 max-w-3xl mx-auto text-lg mb-3">
-            نؤمن بأن تطوير السوق يبدأ بتطوير الكوادر البشرية. لذلك نقدم برامج تدريبية متخصصة،
-            ونعمل على تأهيل المتدربين وربطهم بفرص العمل المحلية والدولية.
+            {t.intro}
           </p>
         </RevealOnScroll>
       </div>
@@ -100,7 +58,7 @@ export default function TrainingPage() {
                         <StaggerItem key={j}>
                           <motion.div
                             className="flex items-start gap-3 group"
-                            whileHover={{ x: -5 }}
+                            whileHover={{ x: isRtl ? -5 : 5 }}
                             transition={{ type: "spring", stiffness: 400 }}
                           >
                             <CheckCircle2 className="w-4 h-4 text-red-500 shrink-0 mt-1" />
@@ -130,18 +88,18 @@ export default function TrainingPage() {
             </div>
             <div className="relative">
               <GraduationCap className="w-14 h-14 text-red-500 mx-auto mb-4" />
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">هل أنت مهتم بالتدريب أو التوظيف؟</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">{t.cta.title}</h2>
               <div className="accent-divider w-16 mx-auto mb-4"></div>
               <p className="text-gray-400 mb-8 max-w-xl mx-auto leading-relaxed">
-                سواء كنت تبحث عن تطوير مهاراتك، أو شركة تبحث عن كوادر فنية مؤهلة — تواصل معنا اليوم.
+                {t.cta.text}
               </p>
               <MagneticHover>
                 <Link
-                  href="/contact"
+                  href={href("/contact")}
                   className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition-all"
                 >
-                  تواصل معنا
-                  <ArrowLeft className="w-5 h-5" />
+                  {t.cta.button}
+                  <Forward className="w-5 h-5" />
                 </Link>
               </MagneticHover>
             </div>

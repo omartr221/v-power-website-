@@ -2,18 +2,24 @@
 import { motion } from "framer-motion";
 import { Target, Eye, Award, Users, Globe, Handshake } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, TextReveal, GlowCard, MagneticHover } from "@/components/MotionElements";
-import aboutData from "../../../content/about.json";
+import { type Locale } from "@/i18n/config";
+import { getAboutContent, getContactContent } from "@/i18n/content";
+import { getAboutStrings } from "@/i18n/pages/about";
 
 const iconMap = [Award, Users, Globe, Handshake];
-const values = aboutData.values.map((v, i) => ({ ...v, icon: iconMap[i] || Award }));
 
-export default function AboutPage() {
+export default function AboutView({ locale }: { locale: Locale }) {
+  const aboutData = getAboutContent(locale);
+  const contactData = getContactContent(locale);
+  const strings = getAboutStrings(locale);
+  const values = aboutData.values.map((v, i) => ({ ...v, icon: iconMap[i] || Award }));
+
   return (
     <div className="py-16 bg-gradient-to-b from-[#f8f7f4] to-white overflow-hidden">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 text-center mb-16">
         <RevealOnScroll direction="down">
-          <p className="text-red-600 font-bold text-sm mb-3">من نحن</p>
+          <p className="text-red-600 font-bold text-sm mb-3">{strings.eyebrow}</p>
           <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">{aboutData.pageTitle}</h1>
           <div className="accent-divider w-20 mx-auto mb-5"></div>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">{aboutData.pageSubtitle}</p>
@@ -66,7 +72,7 @@ export default function AboutPage() {
                 />
                 <div className="accent-divider w-16 mx-auto mb-4"></div>
                 <p className="text-red-500 font-bold text-lg mb-2">VAG Specialist</p>
-                <p className="text-gray-400 text-sm">سوريا - حمص - أوتوستراد التحويلة - تقاطع تل الشور</p>
+                <p className="text-gray-400 text-sm">{contactData.address}</p>
                 <StaggerContainer className="mt-6 flex flex-wrap justify-center gap-3" staggerDelay={0.1} delay={0.5}>
                   {["Volkswagen", "Audi", "Skoda", "Seat", "Porsche"].map((brand, i) => (
                     <StaggerItem key={i}>
@@ -129,8 +135,8 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 mb-16">
         <RevealOnScroll direction="up">
           <div className="text-center mb-14">
-            <p className="text-red-600 font-bold text-sm mb-3">مبادئنا</p>
-            <h2 className="text-3xl font-black text-dark mb-4">قيمنا الأساسية</h2>
+            <p className="text-red-600 font-bold text-sm mb-3">{strings.valuesEyebrow}</p>
+            <h2 className="text-3xl font-black text-dark mb-4">{strings.valuesTitle}</h2>
             <div className="accent-divider w-16 mx-auto"></div>
           </div>
         </RevealOnScroll>

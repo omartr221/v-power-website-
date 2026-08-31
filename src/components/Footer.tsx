@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
-import contactData from "../../content/contact.json";
+import { localeHref, type Locale } from "@/i18n/config";
+import { getContactContent } from "@/i18n/content";
+import { getUi } from "@/i18n/ui";
 
 const InstagramIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -14,7 +16,11 @@ const FacebookIcon = () => (
   </svg>
 );
 
-export default function Footer() {
+export default function Footer({ locale }: { locale: Locale }) {
+  const contactData = getContactContent(locale);
+  const ui = getUi(locale);
+  const href = (path: string) => localeHref(locale, path);
+
   return (
     <footer className="bg-dark text-gray-300 border-t border-red-600/10">
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -24,24 +30,24 @@ export default function Footer() {
             <img src="/logo-v2.png" alt="V POWER TUNING" className="h-16 w-auto" />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed">
-            الشريك المتكامل والمعتمد لسيارات مجموعة VAG من قطع الغيار الأصلية إلى تجهيز مراكز الصيانة بالبرامج والمعدات الرسمية.
+            {ui.footer.tagline}
           </p>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-white font-bold text-lg mb-4">روابط سريعة</h3>
+          <h3 className="text-white font-bold text-lg mb-4">{ui.footer.quickLinks}</h3>
           <div className="space-y-2">
-            <Link href="/" className="block text-gray-400 hover:text-red-400 transition-colors text-sm">الرئيسية</Link>
-            <Link href="/services" className="block text-gray-400 hover:text-red-400 transition-colors text-sm">خدماتنا</Link>
-            <Link href="/about" className="block text-gray-400 hover:text-red-400 transition-colors text-sm">من نحن</Link>
-            <Link href="/contact" className="block text-gray-400 hover:text-red-400 transition-colors text-sm">تواصل معنا</Link>
+            <Link href={href("/")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.home}</Link>
+            <Link href={href("/services")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.services}</Link>
+            <Link href={href("/about")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.about}</Link>
+            <Link href={href("/contact")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.contact}</Link>
           </div>
         </div>
 
         {/* Contact Info */}
         <div>
-          <h3 className="text-white font-bold text-lg mb-4">تواصل معنا</h3>
+          <h3 className="text-white font-bold text-lg mb-4">{ui.footer.contactUs}</h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-sm">
               <MapPin className="w-5 h-5 text-red-500 shrink-0" />
@@ -57,22 +63,22 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-3 text-sm">
               <MessageCircle className="w-5 h-5 text-green-500 shrink-0" />
-              <a href={`https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}`} target="_blank" className="hover:text-green-400 transition-colors">واتساب</a>
+              <a href={`https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}`} target="_blank" className="hover:text-green-400 transition-colors">{ui.footer.whatsapp}</a>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <span className="text-pink-400 shrink-0"><InstagramIcon /></span>
-              <a href={contactData.instagram} target="_blank" className="hover:text-pink-400 transition-colors">إنستغرام</a>
+              <a href={contactData.instagram} target="_blank" className="hover:text-pink-400 transition-colors">{ui.footer.instagram}</a>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <span className="text-blue-400 shrink-0"><FacebookIcon /></span>
-              <a href={contactData.facebook} target="_blank" className="hover:text-blue-400 transition-colors">فيسبوك</a>
+              <a href={contactData.facebook} target="_blank" className="hover:text-blue-400 transition-colors">{ui.footer.facebook}</a>
             </div>
           </div>
         </div>
       </div>
 
       <div className="border-t border-red-600/10 py-4 text-center text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} V POWER TUNING. جميع الحقوق محفوظة.
+        &copy; {new Date().getFullYear()} V POWER TUNING. {ui.footer.rights}
       </div>
     </footer>
   );

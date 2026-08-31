@@ -1,65 +1,28 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BookOpen, Clock, ArrowLeft } from "lucide-react";
+import { BookOpen, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { RevealOnScroll, ScalePop, MagneticHover } from "@/components/MotionElements";
+import { localeHref, type Locale } from "@/i18n/config";
+import { getBlogStrings } from "@/i18n/pages/blog";
 
-const placeholderPosts = [
-  {
-    category: "نصائح الصيانة",
-    title: "كيف تحافظ على محرك سيارتك VAG في أفضل حالة؟",
-    excerpt: "مقال قادم يتضمن أهم النصائح العملية للحفاظ على أداء محركات فولكس واجن وأودي وسكودا وسيات وبورشه.",
-    date: "قريباً",
-    readTime: "5 دقائق"
-  },
-  {
-    category: "تعديل الأداء",
-    title: "ما الفرق بين Stage 1 و Stage 2 و Stage 3 في برمجة ECU؟",
-    excerpt: "دليل شامل يشرح الفروقات العملية بين مراحل تعديل الأداء وما يناسب كل نوع من المستخدمين.",
-    date: "قريباً",
-    readTime: "7 دقائق"
-  },
-  {
-    category: "أخبار الشركة",
-    title: "V POWER TUNING تطلق منصة التوظيف الذكية المدعومة بالذكاء الاصطناعي",
-    excerpt: "أحدث منصة في السوق السورية لتقييم الكوادر الفنية وربطهم بأصحاب العمل بطريقة موضوعية ودقيقة.",
-    date: "قريباً",
-    readTime: "4 دقائق"
-  },
-  {
-    category: "نظام ERP",
-    title: "لماذا تحتاج ورشتك إلى نظام ERP متخصص وليس برنامج محاسبة عام؟",
-    excerpt: "الفرق الجوهري بين نظام ERP المصمم لمراكز الصيانة وبرامج المحاسبة العامة، وكيف يؤثر ذلك على كفاءة عملك.",
-    date: "قريباً",
-    readTime: "6 دقائق"
-  },
-  {
-    category: "تشخيص الأعطال",
-    title: "كيف يستخدم VCDS وODIS في تشخيص أعطال سيارات VAG؟",
-    excerpt: "شرح مبسط لأدوات التشخيص الرسمية وكيف تساعد في إيجاد الأعطال الدقيقة في وقت قياسي.",
-    date: "قريباً",
-    readTime: "8 دقائق"
-  },
-  {
-    category: "تجهيز الورش",
-    title: "دليل المستثمر: كيف تجهز مركز صيانة سيارات VAG من الصفر؟",
-    excerpt: "الخطوات الكاملة من التخطيط إلى التشغيل، شاملاً المعدات والبرامج والكوادر البشرية.",
-    date: "قريباً",
-    readTime: "10 دقائق"
-  }
-];
+export default function BlogView({ locale }: { locale: Locale }) {
+  const t = getBlogStrings(locale);
+  const href = (path: string) => localeHref(locale, path);
+  const isRtl = locale === "ar";
+  const Forward = isRtl ? ArrowLeft : ArrowRight;
+  const placeholderPosts = t.posts;
 
-export default function BlogPage() {
   return (
     <div className="py-16 bg-gradient-to-b from-[#f8f7f4] to-white overflow-hidden">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 text-center mb-16">
         <RevealOnScroll direction="down">
-          <p className="text-red-600 font-bold text-sm mb-3">المعرفة والأخبار</p>
-          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">المدونة والأخبار</h1>
+          <p className="text-red-600 font-bold text-sm mb-3">{t.eyebrow}</p>
+          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">{t.title}</h1>
           <div className="accent-divider w-20 mx-auto mb-5"></div>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-            مقالات تقنية، نصائح صيانة، وأخبار V POWER TUNING — كل ما يخص عالم سيارات VAG في مكان واحد.
+            {t.subtitle}
           </p>
         </RevealOnScroll>
       </div>
@@ -78,9 +41,9 @@ export default function BlogPage() {
               >
                 <BookOpen className="w-16 h-16 text-red-500 mx-auto mb-4" />
               </motion.div>
-              <h2 className="text-2xl font-bold mb-2">المحتوى قيد الإعداد</h2>
+              <h2 className="text-2xl font-bold mb-2">{t.bannerTitle}</h2>
               <p className="text-gray-400 max-w-lg mx-auto">
-                نعمل على إعداد مقالات تقنية احترافية. تابعونا قريباً لمعرفة كل جديد في عالم VAG.
+                {t.bannerText}
               </p>
             </div>
           </div>
@@ -90,7 +53,7 @@ export default function BlogPage() {
       {/* Placeholder Posts Grid */}
       <div className="max-w-7xl mx-auto px-4 mb-16">
         <RevealOnScroll direction="up">
-          <h2 className="text-2xl font-black text-dark mb-8">مقالات قادمة</h2>
+          <h2 className="text-2xl font-black text-dark mb-8">{t.upcomingTitle}</h2>
         </RevealOnScroll>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {placeholderPosts.map((post, i) => (
@@ -129,17 +92,17 @@ export default function BlogPage() {
       <ScalePop delay={0.2}>
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className="bg-gradient-to-br from-[#1e293b] to-dark rounded-2xl p-10 text-white border border-red-600/20">
-            <h2 className="text-xl font-bold mb-3">تواصل معنا للاستفسارات التقنية</h2>
+            <h2 className="text-xl font-bold mb-3">{t.ctaTitle}</h2>
             <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-              لديك سؤال تقني؟ فريقنا من المهندسين والفنيين المتخصصين جاهز للإجابة.
+              {t.ctaText}
             </p>
             <MagneticHover>
               <Link
-                href="/contact"
+                href={href("/contact")}
                 className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-bold transition-all"
               >
-                تواصل معنا
-                <ArrowLeft className="w-4 h-4" />
+                {t.ctaButton}
+                <Forward className="w-4 h-4" />
               </Link>
             </MagneticHover>
           </div>

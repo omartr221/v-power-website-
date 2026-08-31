@@ -1,0 +1,71 @@
+{
+  "pageTitle": "V POWER TUNING",
+  "pageSubtitle": "Your trusted, specialized partner in the world of VAG",
+  "storyTitle": "Our Story",
+  "storyParagraph1": "V POWER TUNING was founded on a clear vision: to deliver specialized, professional services for VAG Group vehicles that combine deep technical expertise with an uncompromising commitment to quality.",
+  "storyParagraph2": "Our journey began with importing performance tuning parts and providing professional tuning services, and from the outset we were able to execute complex projects that placed us at the forefront of the field. As confidence in our work grew, the company expanded in 2021 with the opening of a full service facility — the largest VAG service center in the city of Homs — equipped with the latest certified tools and devices, and a complete destination for owners of Volkswagen, Audi, Skoda, Seat, and Porsche vehicles.",
+  "storyParagraph3": "Today we are far more than a service center. We are a leading importer and authorized distributor of spare parts, covering the local market through retail sales to individual customers and service centers, and continuously working to expand our wholesale business to companies and distributors across Syria and the wider region.",
+  "visionTitle": "Our Vision",
+  "visionText": "To be the leading complete and certified partner for VAG Group vehicles in the region, a benchmark for specialization and professionalism, and the first destination for international suppliers seeking a trusted partner in the Syrian and regional markets.",
+  "missionTitle": "Our Mission",
+  "missionText": "To deliver integrated solutions that bring together spare parts import and distribution, specialized maintenance, performance tuning, and service center setup — while continuously developing qualified technical and administrative talent through specialized training programs and management consulting, and building a complete ecosystem that serves every participant in the automotive industry.",
+  "values": [
+    { "title": "Specialization & Professionalism", "desc": "We believe that deep knowledge and technical expertise are the foundation of exceptional service." },
+    { "title": "Transparency & Clarity", "desc": "We are committed to complete clarity in our dealings with customers: discussing the work in detail and explaining costs before any job begins." },
+    { "title": "Development & Innovation", "desc": "We invest continuously in developing our people and our systems to stay at the forefront of the field, harnessing artificial intelligence to improve our diagnostic and administrative services." },
+    { "title": "Social Responsibility", "desc": "We believe in our role in spreading knowledge and qualifying technical talent to raise the standard of the entire market." }
+  ],
+  "extraSections": [
+    {
+      "title": "Our Team",
+      "layout": "paragraphs",
+      "items": [
+        "Behind every service we deliver stands a team of experts who combine technical passion with administrative excellence. Our team brings together a select group of engineers and technicians specialized in servicing and tuning VAG vehicles, alongside trained administrative staff across import and sales, maintenance, spare parts, accounting, human resources, customer service, and marketing — ensuring a seamless, complete experience for every customer.",
+        "The company has invested heavily in developing its people. Our team has completed specialized training programs in tuning and diagnostics, sales, management, and quality control, ensuring that every service we deliver meets the highest international standards."
+      ]
+    },
+    {
+      "title": "Our Location & Reach",
+      "layout": "paragraphs",
+      "items": [
+        "Our headquarters in the city of Homs, Syria — on Al-Tahwileh Highway at the Tal Al-Shour junction — is the center of our operations. The facility houses all of our maintenance, diagnostics, and performance tuning departments, along with our central spare parts warehouses that support our import and distribution operations.",
+        "We also serve customers in neighboring countries by shipping spare parts and providing technical and administrative consulting remotely, reflecting our ability to support clients wherever they are."
+      ]
+    },
+    {
+      "title": "Our Approach to Excellence",
+      "layout": "bullets",
+      "intro": "At V POWER TUNING we believe excellence is not a slogan but a practice we apply every day. It shows in:",
+      "items": [
+        "Spare parts import and distribution: we import genuine and performance parts directly from trusted sources and distribute them through our local network via retail sales to individual customers and service centers, while continuously expanding wholesale sales to companies and distributors across Syria and the region — making us a strategic partner for international suppliers.",
+        "Complete focus on the VAG Group: every service we offer is dedicated to these vehicles alone, which means deeper knowledge and more precise solutions.",
+        "Certified equipment and software: we use the latest diagnostic hardware such as VAS, together with VCDS and ODIS software, alongside physical equipment from certified international manufacturers.",
+        "An integrated management system: we developed our own system to run service center operations, managing every detail from vehicle intake to documenting each technical operation and the staff who performed it, through to a complete archive for every vehicle and every technician. That system is now an independent product we offer to others, with AI-powered data analysis to optimize performance and decision-making.",
+        "Training and qualification: driven by our social responsibility, we regularly organize training programs for engineers and technicians, and we are currently launching an advanced AI-powered digital platform to assess skills and connect qualified talent with local and international job opportunities."
+      ]
+    },
+    {
+      "title": "Why Choose V POWER TUNING?",
+      "layout": "bullets",
+      "items": [
+        "Because we deliver integrated solutions under one roof: spare parts import and distribution, specialized maintenance, performance tuning, and management consulting.",
+        "Because we are a leading importer and authorized distributor able to cover the local and regional market, making us a trusted partner for international suppliers seeking effective access to the Syrian market.",
+        "Because we put transparency and clarity at the heart of our customer relationships, discussing technical details and costs openly before any work begins.",
+        "Because we continuously develop our people and our systems, and apply the latest artificial intelligence in diagnostics and data analysis, to remain the best choice for our customers and partners.",
+        "Because we do not only serve customers — we help develop the entire market through training, recruitment, and knowledge transfer."
+      ]
+    },
+    {
+      "title": "Looking Ahead",
+      "layout": "paragraphs",
+      "items": [
+        "At V POWER TUNING we look to the future with real ambition. We are continuously expanding our spare parts distribution network into new markets, developing our management systems, and strengthening our regional presence. Our goal is to become the leading strategic partner for manufacturers and international suppliers — having proven our capability and expertise over years of outstanding work, our ability to cover the market effectively through an integrated sales network, and our commitment to artificial intelligence across our diagnostic, administrative, and recruitment operations."
+      ]
+    },
+    {
+      "title": "Be Part of the Journey to Excellence with V POWER TUNING",
+      "layout": "cta",
+      "items": []
+    }
+  ]
+}

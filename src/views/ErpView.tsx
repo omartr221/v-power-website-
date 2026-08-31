@@ -1,61 +1,31 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BarChart2, CheckCircle2, ClipboardList, Users, Database, TrendingUp, ArrowLeft } from "lucide-react";
+import { BarChart2, CheckCircle2, ClipboardList, Users, Database, TrendingUp, ArrowLeft, ArrowRight } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
+import { localeHref, type Locale } from "@/i18n/config";
+import { getErpStrings } from "@/i18n/pages/erp";
 
-const consultingFeatures = [
-  "الهيكلة التنظيمية: تصميم هيكل تنظيمي يناسب حجم ونشاط مركز الصيانة.",
-  "التوصيفات الوظيفية: تحديد المهام والمسؤوليات لكل وظيفة بوضوح.",
-  "مخططات تدفق العمل (Flow Charts): رسم خرائط لسير العمليات اليومية لضمان سلاسة العمل.",
-  "تحسين العمليات: تحليل العمليات الحالية وتقديم حلول لزيادة الكفاءة وتقليل الهدر.",
-  "إدارة الموارد البشرية: تطوير سياسات التوظيف، التدريب، التحفيز، وتقييم الأداء.",
-];
+const iconMap = [ClipboardList, Users, Database, BarChart2, TrendingUp, ClipboardList];
 
-const erpModules = [
-  {
-    icon: ClipboardList,
-    title: "بطاقة السيارة الشاملة",
-    desc: "ملف كامل لكل سيارة يحتوي على جميع البيانات الفنية، سجل الصيانة الكامل، الأعطال السابقة، والإصلاحات المنفذة — أرشيف دائم قابل للرجوع إليه في أي وقت."
-  },
-  {
-    icon: Users,
-    title: "بطاقة العامل المتكاملة",
-    desc: "تسجيل تفصيلي لكافة العمليات التي يقوم بها كل عامل، لتحليل أدائه الفعلي وحساب الحوافز الشهرية بدقة وشفافية تامة."
-  },
-  {
-    icon: Database,
-    title: "توثيق العمليات والطلبيات",
-    desc: "توثيق شامل من لحظة دخول السيارة إلى المركز، مروراً بعمليات الصيانة والتشخيص، وصولاً إلى طلبيات قطع الغيار بين الأقسام."
-  },
-  {
-    icon: BarChart2,
-    title: "حساب التكاليف بدقة",
-    desc: "حساب تكلفة كل إصلاح بناءً على ساعات العمل الفعلية وقطع الغيار المستخدمة، مع إصدار فواتير دقيقة وشفافة للعملاء."
-  },
-  {
-    icon: TrendingUp,
-    title: "تحليل البيانات بالذكاء الاصطناعي",
-    desc: "تحليل أداء العمال، كفاءة العمليات، واتجاهات الأعطال باستخدام تقنيات الذكاء الاصطناعي، لاتخاذ قرارات مبنية على بيانات حقيقية."
-  },
-  {
-    icon: ClipboardList,
-    title: "أرشفة كاملة وأمان البيانات",
-    desc: "حفظ أرشيف كامل لكل سيارة وكل عامل، مع أمان عالٍ للبيانات وإمكانية الوصول من أي مكان عبر واجهة سهلة الاستخدام."
-  }
-];
+export default function ErpView({ locale }: { locale: Locale }) {
+  const t = getErpStrings(locale);
+  const href = (path: string) => localeHref(locale, path);
+  const isRtl = locale === "ar";
+  const Forward = isRtl ? ArrowLeft : ArrowRight;
+  const consultingFeatures = t.consulting.features;
+  const erpModules = t.modules.items.map((m, i) => ({ ...m, icon: iconMap[i] || ClipboardList }));
 
-export default function ErpPage() {
   return (
     <div className="py-16 bg-gradient-to-b from-[#f8f7f4] to-white overflow-hidden">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 text-center mb-16">
         <RevealOnScroll direction="down">
-          <p className="text-red-600 font-bold text-sm mb-3">خدماتنا</p>
-          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">الاستشارات الإدارية ونظام ERP</h1>
+          <p className="text-red-600 font-bold text-sm mb-3">{t.header.eyebrow}</p>
+          <h1 className="text-4xl md:text-5xl font-black text-dark mb-5">{t.header.title}</h1>
           <div className="accent-divider w-20 mx-auto mb-5"></div>
           <p className="text-gray-500 max-w-3xl mx-auto text-lg">
-            نقدم للمستثمرين وأصحاب مراكز الصيانة والشركات الاستشارات الإدارية المتخصصة، بالإضافة إلى نظام إداري متكامل (ERP) صممناه خصيصاً لمراكز صيانة السيارات، وليس مجرد برنامج محاسبة عام.
+            {t.header.intro}
           </p>
         </RevealOnScroll>
       </div>
@@ -73,19 +43,19 @@ export default function ErpPage() {
                 >
                   <BarChart2 className="w-7 h-7 text-red-500" />
                 </motion.div>
-                <h2 className="text-2xl font-bold text-dark mb-3">الاستشارات الإدارية</h2>
+                <h2 className="text-2xl font-bold text-dark mb-3">{t.consulting.title}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  نقدم دراسات متخصصة لتحسين أداء مراكز الصيانة، بدءاً من الهيكلة التنظيمية وصولاً إلى إدارة العمليات.
+                  {t.consulting.desc}
                 </p>
               </div>
               <div className="md:col-span-2">
-                <h4 className="text-sm font-bold text-red-600 mb-4">ما نقدمه</h4>
+                <h4 className="text-sm font-bold text-red-600 mb-4">{t.consulting.featuresTitle}</h4>
                 <StaggerContainer className="space-y-3" staggerDelay={0.08}>
                   {consultingFeatures.map((item, j) => (
                     <StaggerItem key={j}>
                       <motion.div
                         className="flex items-start gap-3 group"
-                        whileHover={{ x: -5 }}
+                        whileHover={{ x: isRtl ? -5 : 5 }}
                         transition={{ type: "spring", stiffness: 400 }}
                       >
                         <CheckCircle2 className="w-4 h-4 text-red-500 shrink-0 mt-1" />
@@ -104,11 +74,11 @@ export default function ErpPage() {
       <div className="max-w-7xl mx-auto px-4 mb-20">
         <RevealOnScroll direction="up">
           <div className="text-center mb-12">
-            <p className="text-red-600 font-bold text-sm mb-3">النظام</p>
-            <h2 className="text-3xl font-black text-dark mb-4">نظام ERP المتكامل لمراكز الصيانة</h2>
+            <p className="text-red-600 font-bold text-sm mb-3">{t.modules.eyebrow}</p>
+            <h2 className="text-3xl font-black text-dark mb-4">{t.modules.title}</h2>
             <div className="accent-divider w-20 mx-auto mb-4"></div>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              طورناه خصيصاً لمراكز صيانة السيارات — نظام مرن وقابل للتعديل حسب احتياجات كل مركز صيانة.
+              {t.modules.subtitle}
             </p>
           </div>
         </RevealOnScroll>
@@ -147,9 +117,9 @@ export default function ErpPage() {
             </div>
             <div className="relative">
               <TrendingUp className="w-14 h-14 text-red-500 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-3">مدعوم بالذكاء الاصطناعي</h3>
+              <h3 className="text-2xl font-bold mb-3">{t.ai.title}</h3>
               <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                نظامنا لا يكتفي بتسجيل البيانات، بل يحللها باستخدام تقنيات الذكاء الاصطناعي لاكتشاف الأنماط، وتحديد فرص التحسين، ومساعدتك على اتخاذ قرارات أفضل وأسرع.
+                {t.ai.desc}
               </p>
             </div>
           </div>
@@ -168,18 +138,18 @@ export default function ErpPage() {
               />
             </div>
             <div className="relative">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">هل تريد تطوير إدارة مركزك؟</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">{t.cta.title}</h2>
               <div className="accent-divider w-16 mx-auto mb-4"></div>
               <p className="text-gray-400 mb-8 max-w-xl mx-auto leading-relaxed">
-                سواء كنت تبحث عن استشارات إدارية أو نظام ERP متكامل — تواصل معنا ونصمم لك الحل المناسب.
+                {t.cta.desc}
               </p>
               <MagneticHover>
                 <Link
-                  href="/contact"
+                  href={href("/contact")}
                   className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition-all"
                 >
-                  تواصل معنا
-                  <ArrowLeft className="w-5 h-5" />
+                  {t.cta.button}
+                  <Forward className="w-5 h-5" />
                 </Link>
               </MagneticHover>
             </div>
