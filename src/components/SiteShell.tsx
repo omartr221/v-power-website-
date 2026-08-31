@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
 import { direction, type Locale } from "@/i18n/config";
 
 /**
@@ -18,6 +19,7 @@ export default function SiteShell({
     <html lang={locale} dir={direction(locale)}>
       <head>
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+        <StructuredData locale={locale} />
       </head>
       <body className="min-h-screen flex flex-col">
         <Navbar locale={locale} />
