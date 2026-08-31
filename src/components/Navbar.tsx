@@ -6,6 +6,8 @@ import { Menu, X, ChevronDown, Globe } from "lucide-react";
 import { localeHref, switchLocaleHref, type Locale } from "@/i18n/config";
 import { getUi } from "@/i18n/ui";
 
+const LOCALE_COOKIE = "NEXT_LOCALE";
+
 export default function Navbar({ locale }: { locale: Locale }) {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -15,6 +17,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
   const ui = getUi(locale);
   const href = (path: string) => localeHref(locale, path);
   const otherLocaleHref = switchLocaleHref(locale, pathname || "/");
+  const otherLocale = locale === "ar" ? "en" : "ar";
 
   const handleServicesEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -25,16 +28,21 @@ export default function Navbar({ locale }: { locale: Locale }) {
     timeoutRef.current = setTimeout(() => setServicesOpen(false), 150);
   };
 
+  const handleLanguageSwitch = () => {
+    document.cookie = `${LOCALE_COOKIE}=${otherLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+    window.location.href = otherLocaleHref;
+  };
+
   const languageToggle = (extraClasses = "") => (
-    <Link
-      href={otherLocaleHref}
+    <button
+      onClick={handleLanguageSwitch}
       aria-label={ui.language.ariaLabel}
       title={ui.language.switchTo}
       className={`flex items-center gap-1.5 border border-gray-500 hover:border-red-500 hover:text-white text-gray-300 rounded-lg px-2.5 py-1 text-xs font-bold tracking-wide transition-colors ${extraClasses}`}
     >
       <Globe className="w-3.5 h-3.5" />
       {ui.language.switchLabel}
-    </Link>
+    </button>
   );
 
   return (

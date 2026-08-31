@@ -21,7 +21,6 @@ body {
   font-family: 'Cairo', sans-serif;
   color: var(--foreground);
   background: var(--background);
-  direction: rtl;
 }
 
 @layer utilities {

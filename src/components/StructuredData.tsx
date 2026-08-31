@@ -33,7 +33,7 @@ export default function StructuredData({ locale }: { locale: Locale }) {
       streetAddress:
         locale === "ar"
           ? "أوتوستراد التحويلة - تقاطع تل الشور"
-          : "Al-Tahwileh Highway - Tal Al-Shour Junction",
+          : "Ring Road - Tal Al-Shour Exit",
       addressLocality: locale === "ar" ? "حمص" : "Homs",
       addressCountry: "SY",
     },
