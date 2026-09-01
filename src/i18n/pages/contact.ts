@@ -15,6 +15,7 @@ const dictionaries = {
     info: {
       email: "البريد الإلكتروني",
       phone: "هاتف",
+      mobile: "خليوي",
       whatsapp: "واتساب",
       whatsappValue: "تواصل عبر واتساب",
       location: "موقعنا",
@@ -55,12 +56,13 @@ const dictionaries = {
   },
   en: {
     eyebrow: "Contact Us",
-    title: "We Are Here to Help",
-    subtitle: "Reach out however suits you best and we will get back to you as soon as possible",
+    title: "We're Here to Help — Whether You're an Owner, an Investor, or a Future Technician",
+    subtitle: "Have a question about our services? Need a genuine part? Ready to build your workshop? Or looking to join our training program? Reach out — we'd love to hear from you.",
     infoTitle: "Contact Information",
     info: {
       email: "Email",
       phone: "Phone",
+      mobile: "Mobile",
       whatsapp: "WhatsApp",
       whatsappValue: "Chat on WhatsApp",
       location: "Our Location",

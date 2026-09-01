@@ -67,7 +67,7 @@ const dictionaries = {
       home: "Home",
       services: "Services",
       erp: "ERP System",
-      training: "Training & Recruitment",
+      training: "Training & Talent",
       about: "About Us",
       contact: "Contact",
       openMenu: "Open menu",

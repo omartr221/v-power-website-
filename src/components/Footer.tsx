@@ -39,8 +39,8 @@ export default function Footer({ locale }: { locale: Locale }) {
           <h3 className="text-white font-bold text-lg mb-4">{ui.footer.quickLinks}</h3>
           <div className="space-y-2">
             <Link href={href("/")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.home}</Link>
-            <Link href={href("/services")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.services}</Link>
             <Link href={href("/about")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.about}</Link>
+            <Link href={href("/services")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.services}</Link>
             <Link href={href("/contact")} className="block text-gray-400 hover:text-red-400 transition-colors text-sm">{ui.nav.contact}</Link>
           </div>
         </div>

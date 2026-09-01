@@ -63,7 +63,7 @@ const dictionaries = {
   },
   en: {
     eyebrow: "Our Services",
-    title: "Technical Training & Recruitment",
+    title: "Technical Training & Talent Matching",
     intro:
       "We believe that developing the market starts with developing its people. That is why we offer specialized training programs, qualify our trainees, and connect them with local and international job opportunities.",
     programs: [

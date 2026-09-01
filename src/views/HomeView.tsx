@@ -1,21 +1,15 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Cog, ShieldCheck, Gauge, Wrench, GraduationCap, BarChart2, ChevronLeft, ChevronRight } from "lucide-react";
-import { RevealOnScroll, StaggerContainer, StaggerItem, GlowCard, MagneticHover } from "@/components/MotionElements";
+import { CheckCircle2 } from "lucide-react";
+import { RevealOnScroll, StaggerContainer, StaggerItem, MagneticHover } from "@/components/MotionElements";
 import { localeHref, type Locale } from "@/i18n/config";
 import { getHomeContent } from "@/i18n/content";
-import { getUi } from "@/i18n/ui";
-
-const iconMap = [Cog, ShieldCheck, Gauge, Wrench, GraduationCap, BarChart2];
 
 export default function HomeView({ locale }: { locale: Locale }) {
   const homeData = getHomeContent(locale);
-  const ui = getUi(locale);
   const href = (path: string) => localeHref(locale, path);
   const isRtl = locale === "ar";
-  const Chevron = isRtl ? ChevronLeft : ChevronRight;
-  const services = homeData.services.map((s, i) => ({ ...s, icon: iconMap[i] || Wrench }));
 
   return (
     <div className="overflow-hidden">
@@ -24,7 +18,7 @@ export default function HomeView({ locale }: { locale: Locale }) {
         <div className="absolute inset-0">
           <motion.img
             src={homeData.heroImage}
-            alt={ui.home.heroImageAlt}
+            alt="V POWER TUNING"
             className="w-full h-full object-cover"
             initial={{ scale: 1.2 }}
             animate={{ scale: 1 }}
@@ -66,7 +60,7 @@ export default function HomeView({ locale }: { locale: Locale }) {
               className="accent-divider mx-auto mb-6"
             />
             <motion.h1
-              className="text-2xl md:text-4xl text-white/90 mb-4 font-light leading-relaxed"
+              className="text-3xl md:text-5xl font-black text-white mb-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
@@ -82,26 +76,13 @@ export default function HomeView({ locale }: { locale: Locale }) {
               {homeData.heroBrands}
             </motion.p>
             <motion.p
-              className="text-gray-400 max-w-3xl mx-auto text-base leading-relaxed mb-4"
+              className="text-gray-300 max-w-3xl mx-auto text-base leading-relaxed mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              {homeData.heroDescriptionIntro}
+              {homeData.heroDescription}
             </motion.p>
-            <div className="max-w-3xl mx-auto text-gray-400 text-base leading-relaxed mb-10">
-              {homeData.heroDescriptionLines.map((line, i) => (
-                <motion.p
-                  key={i}
-                  className="mb-2"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.3 + i * 0.1 }}
-                >
-                  {line}
-                </motion.p>
-              ))}
-            </div>
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 30 }}
@@ -110,18 +91,18 @@ export default function HomeView({ locale }: { locale: Locale }) {
             >
               <MagneticHover>
                 <Link
-                  href={href("/services")}
+                  href={href(homeData.ctaButton1Href)}
                   className="bg-red-600 hover:bg-red-700 text-white px-8 py-3.5 rounded-lg font-bold text-lg transition-all shadow-lg shadow-red-600/25 block"
                 >
-                  {homeData.heroButton1}
+                  {homeData.ctaButton1}
                 </Link>
               </MagneticHover>
               <MagneticHover>
                 <Link
-                  href={href("/about")}
+                  href={href(homeData.ctaButton2Href)}
                   className="border border-gray-400 hover:border-white text-white px-8 py-3.5 rounded-lg font-medium text-lg transition-all hover:bg-white/5 block"
                 >
-                  {homeData.heroButton2}
+                  {homeData.ctaButton2}
                 </Link>
               </MagneticHover>
             </motion.div>
@@ -132,55 +113,127 @@ export default function HomeView({ locale }: { locale: Locale }) {
 
       <div className="shimmer-line"></div>
 
-      {/* Services Overview */}
-      <section className="py-28 bg-gradient-to-b from-[#f8f7f4] to-white relative">
+      {/* Tagline / Value Proposition */}
+      <section className="py-24 bg-gradient-to-b from-[#f8f7f4] to-white">
         <div className="max-w-7xl mx-auto px-4">
           <RevealOnScroll direction="up">
-            <div className="text-center mb-20">
-              <p className="text-red-600 font-bold text-sm mb-3">{ui.home.eyebrow}</p>
+            <div className="text-center mb-16">
+              <h2 className="text-2xl md:text-4xl font-black text-dark mb-5 max-w-4xl mx-auto">
+                {homeData.taglineTitle}
+              </h2>
+              <p className="text-gray-500 text-lg">{homeData.taglineIntro}</p>
+            </div>
+          </RevealOnScroll>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+            <RevealOnScroll direction={isRtl ? "left" : "right"}>
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm accent-glow h-full">
+                <h3 className="text-xl font-bold text-red-600 mb-3">{homeData.taglineLeft.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{homeData.taglineLeft.desc}</p>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll direction={isRtl ? "right" : "left"}>
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm accent-glow h-full">
+                <h3 className="text-xl font-bold text-red-600 mb-3">{homeData.taglineRight.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{homeData.taglineRight.desc}</p>
+              </div>
+            </RevealOnScroll>
+          </div>
+        </div>
+      </section>
+
+      {/* Services — Two Columns */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <RevealOnScroll direction="up">
+            <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-black text-dark mb-5">{homeData.servicesTitle}</h2>
               <div className="accent-divider w-20 mx-auto mb-5"></div>
               <p className="text-gray-500 max-w-3xl mx-auto text-lg">{homeData.servicesSubtitle}</p>
-              <p className="text-red-600 font-bold text-base mt-2">{homeData.servicesBrands}</p>
             </div>
           </RevealOnScroll>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.15}>
-            {services.map((service, i) => {
-              const Icon = service.icon;
-              return (
-                <StaggerItem key={i}>
-                  <GlowCard className="bg-white rounded-2xl p-7 border border-gray-100 group cursor-default h-full text-center accent-glow">
-                    <div className="relative w-16 h-16 rounded-2xl flex items-center justify-center mb-5 mx-auto bg-dark group-hover:bg-red-600 transition-colors duration-500 shadow-lg pulse-ring">
-                      <Icon className="w-8 h-8 text-red-500 group-hover:text-white transition-colors duration-500" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-xl font-bold text-dark mb-6">{homeData.ownerServicesTitle}</h3>
+              <StaggerContainer className="space-y-6" staggerDelay={0.12}>
+                {homeData.ownerServices.map((service, i) => (
+                  <StaggerItem key={i}>
+                    <div className="bg-[#f8f7f4] rounded-2xl p-6">
+                      <h4 className="text-lg font-bold text-dark mb-2">{service.title}</h4>
+                      <p className="text-gray-600 text-sm leading-relaxed">{service.desc}</p>
                     </div>
-                    <h3 className="text-lg font-bold text-dark mb-3 group-hover:text-red-600 transition-colors">{service.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed mb-3">{service.desc}</p>
-                    {service.bullets && service.bullets.length > 0 && (
-                      <ul className="text-start space-y-2 text-gray-500 text-sm leading-relaxed list-disc list-inside">
-                        {service.bullets.map((bullet, j) => (
-                          <li key={j}>{bullet}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </GlowCard>
-                </StaggerItem>
-              );
-            })}
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-dark mb-6">{homeData.investorServicesTitle}</h3>
+              <StaggerContainer className="space-y-6" staggerDelay={0.12}>
+                {homeData.investorServices.map((service, i) => (
+                  <StaggerItem key={i}>
+                    <div className="bg-[#f8f7f4] rounded-2xl p-6">
+                      <h4 className="text-lg font-bold text-dark mb-2">{service.title}</h4>
+                      <p className="text-gray-600 text-sm leading-relaxed">{service.desc}</p>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Makes Us Different */}
+      <section className="py-24 bg-gradient-to-b from-[#f8f7f4] to-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <RevealOnScroll direction="up">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-black text-dark mb-5">{homeData.differentiatorsTitle}</h2>
+              <div className="accent-divider w-20 mx-auto"></div>
+            </div>
+          </RevealOnScroll>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {homeData.differentiators.map((item, i) => (
+              <StaggerItem key={i}>
+                <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm h-full">
+                  <div className="flex items-start gap-3 mb-3">
+                    <CheckCircle2 className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                    <h3 className="text-lg font-bold text-dark">{item.title}</h3>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
           </StaggerContainer>
-          <RevealOnScroll direction="up" delay={0.8}>
-            <div className="text-center mt-14">
-              <Link
-                href={href("/services")}
-                className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-bold transition-colors text-lg group"
-              >
-                {ui.home.moreServices}
-                <motion.span
-                  animate={{ x: [0, isRtl ? -5 : 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-dark relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-gray-500/10 morphing-blob blur-[80px]"></div>
+        </div>
+        <div className="relative max-w-4xl mx-auto px-4 text-center text-white">
+          <RevealOnScroll direction="up">
+            <h2 className="text-2xl md:text-4xl font-bold mb-5">{homeData.ctaTitle}</h2>
+            <p className="text-gray-400 mb-10 text-lg leading-relaxed">{homeData.ctaText}</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <MagneticHover>
+                <Link
+                  href={href(homeData.ctaButton1Href)}
+                  className="inline-block bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition-all"
                 >
-                  <Chevron className="w-5 h-5" />
-                </motion.span>
-              </Link>
+                  {homeData.ctaButton1}
+                </Link>
+              </MagneticHover>
+              <MagneticHover>
+                <Link
+                  href={href(homeData.ctaButton2Href)}
+                  className="inline-block border border-gray-400 hover:border-white hover:bg-white/5 text-white px-10 py-4 rounded-lg font-medium text-lg transition-all"
+                >
+                  {homeData.ctaButton2}
+                </Link>
+              </MagneticHover>
             </div>
           </RevealOnScroll>
         </div>

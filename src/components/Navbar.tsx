@@ -59,6 +59,9 @@ export default function Navbar({ locale }: { locale: Locale }) {
             <Link href={href("/")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
               {ui.nav.home}
             </Link>
+            <Link href={href("/about")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
+              {ui.nav.about}
+            </Link>
 
             {/* Services Dropdown */}
             <div
@@ -104,9 +107,6 @@ export default function Navbar({ locale }: { locale: Locale }) {
             <Link href={href("/training")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
               {ui.nav.training}
             </Link>
-            <Link href={href("/about")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
-              {ui.nav.about}
-            </Link>
             <Link href={href("/contact")} className="text-gray-300 hover:text-white transition-colors font-medium text-sm">
               {ui.nav.contact}
             </Link>
@@ -138,6 +138,13 @@ export default function Navbar({ locale }: { locale: Locale }) {
               className="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
             >
               {ui.nav.home}
+            </Link>
+            <Link
+              href={href("/about")}
+              onClick={() => setIsOpen(false)}
+              className="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+            >
+              {ui.nav.about}
             </Link>
 
             {/* Mobile Services Dropdown */}
@@ -178,13 +185,6 @@ export default function Navbar({ locale }: { locale: Locale }) {
               className="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
             >
               {ui.nav.training}
-            </Link>
-            <Link
-              href={href("/about")}
-              onClick={() => setIsOpen(false)}
-              className="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
-            >
-              {ui.nav.about}
             </Link>
             <Link
               href={href("/contact")}

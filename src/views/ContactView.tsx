@@ -28,6 +28,7 @@ export default function ContactView({ locale }: { locale: Locale }) {
   const contactInfo = [
     { icon: Mail, title: t.info.email, value: contactData.email, href: `mailto:${contactData.email}`, ltr: true },
     { icon: Phone, title: t.info.phone, value: contactData.phone, href: `tel:${contactData.phone.replace(/\s/g, '')}`, ltr: true },
+    { icon: Phone, title: t.info.mobile, value: contactData.mobile, href: `tel:${contactData.mobile.replace(/\s/g, '')}`, ltr: true },
     { icon: MessageCircle, title: t.info.whatsapp, value: t.info.whatsappValue, href: `https://wa.me/${contactData.whatsapp.replace(/[+\s]/g, '')}` },
     { icon: MapPin, title: t.info.location, value: contactData.address, href: contactData.mapsUrl },
   ];

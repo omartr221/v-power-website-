@@ -11,8 +11,8 @@ const dictionaries = {
   },
   en: {
     eyebrow: "About Us",
-    valuesEyebrow: "Our Principles",
-    valuesTitle: "Our Core Values",
+    valuesEyebrow: "Technical Excellence, Powered by Innovation",
+    valuesTitle: "Our Approach",
   },
 } as const;
 

@@ -13,18 +13,36 @@ export interface HomeService {
   bullets?: string[];
 }
 
+export interface HomeServiceCard {
+  title: string;
+  desc: string;
+}
+
 export interface HomeContent {
   heroImage: string;
   heroTitle: string;
   heroBrands: string;
-  heroDescriptionIntro: string;
-  heroDescriptionLines: string[];
+  heroDescription: string;
   heroButton1: string;
   heroButton2: string;
+  taglineTitle: string;
+  taglineIntro: string;
+  taglineLeft: { title: string; desc: string };
+  taglineRight: { title: string; desc: string };
   servicesTitle: string;
   servicesSubtitle: string;
-  servicesBrands: string;
-  services: HomeService[];
+  ownerServicesTitle: string;
+  ownerServices: HomeServiceCard[];
+  investorServicesTitle: string;
+  investorServices: HomeServiceCard[];
+  differentiatorsTitle: string;
+  differentiators: { title: string; desc: string }[];
+  ctaTitle: string;
+  ctaText: string;
+  ctaButton1: string;
+  ctaButton1Href: string;
+  ctaButton2: string;
+  ctaButton2Href: string;
 }
 
 export interface AboutValue {
@@ -59,6 +77,7 @@ export interface ContactContent {
   mapsUrl: string;
   email: string;
   phone: string;
+  mobile: string;
   whatsapp: string;
   workingHours: string;
   instagram: string;
