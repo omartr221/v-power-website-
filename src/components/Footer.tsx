@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
+import { Phone, Smartphone, MapPin, MessageCircle, Mail } from "lucide-react";
 import { localeHref, type Locale } from "@/i18n/config";
 import { getContactContent } from "@/i18n/content";
 import { getUi } from "@/i18n/ui";
@@ -56,6 +56,10 @@ export default function Footer({ locale }: { locale: Locale }) {
             <div className="flex items-center gap-3 text-sm">
               <Phone className="w-5 h-5 text-red-500 shrink-0" />
               <a href={`tel:${contactData.phone.replace(/\s/g, '')}`} className="hover:text-red-400 transition-colors" dir="ltr">{contactData.phone}</a>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Smartphone className="w-5 h-5 text-red-400 shrink-0" />
+              <a href={`tel:${contactData.mobile.replace(/\s/g, '')}`} className="hover:text-red-400 transition-colors" dir="ltr">{contactData.mobile}</a>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <Mail className="w-5 h-5 text-blue-400 shrink-0" />

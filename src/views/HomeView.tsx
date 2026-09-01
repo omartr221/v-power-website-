@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Cog, Wrench, Gauge, Building, GraduationCap, Users } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, MagneticHover } from "@/components/MotionElements";
 import { localeHref, type Locale } from "@/i18n/config";
 import { getHomeContent } from "@/i18n/content";
@@ -10,6 +10,8 @@ export default function HomeView({ locale }: { locale: Locale }) {
   const homeData = getHomeContent(locale);
   const href = (path: string) => localeHref(locale, path);
   const isRtl = locale === "ar";
+  const ownerIcons = [Cog, Wrench, Gauge];
+  const investorIcons = [Building, GraduationCap, Users];
 
   return (
     <div className="overflow-hidden">
@@ -126,16 +128,22 @@ export default function HomeView({ locale }: { locale: Locale }) {
           </RevealOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             <RevealOnScroll direction={isRtl ? "left" : "right"}>
-              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm accent-glow h-full">
+              <Link
+                href={href("/services#individuals")}
+                className="block bg-white rounded-2xl p-8 border border-gray-100 shadow-sm accent-glow h-full hover:border-red-300 transition-colors"
+              >
                 <h3 className="text-xl font-bold text-red-600 mb-3">{homeData.taglineLeft.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{homeData.taglineLeft.desc}</p>
-              </div>
+              </Link>
             </RevealOnScroll>
             <RevealOnScroll direction={isRtl ? "right" : "left"}>
-              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm accent-glow h-full">
+              <Link
+                href={href("/services#corporate")}
+                className="block bg-white rounded-2xl p-8 border border-gray-100 shadow-sm accent-glow h-full hover:border-red-300 transition-colors"
+              >
                 <h3 className="text-xl font-bold text-red-600 mb-3">{homeData.taglineRight.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{homeData.taglineRight.desc}</p>
-              </div>
+              </Link>
             </RevealOnScroll>
           </div>
         </div>
@@ -155,27 +163,39 @@ export default function HomeView({ locale }: { locale: Locale }) {
             <div>
               <h3 className="text-xl font-bold text-dark mb-6">{homeData.ownerServicesTitle}</h3>
               <StaggerContainer className="space-y-6" staggerDelay={0.12}>
-                {homeData.ownerServices.map((service, i) => (
-                  <StaggerItem key={i}>
-                    <div className="bg-[#f8f7f4] rounded-2xl p-6">
-                      <h4 className="text-lg font-bold text-dark mb-2">{service.title}</h4>
-                      <p className="text-gray-600 text-sm leading-relaxed">{service.desc}</p>
-                    </div>
-                  </StaggerItem>
-                ))}
+                {homeData.ownerServices.map((service, i) => {
+                  const ServiceIcon = ownerIcons[i];
+                  return (
+                    <StaggerItem key={i}>
+                      <div className="bg-[#f8f7f4] rounded-2xl p-6">
+                        <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center mb-4">
+                          <ServiceIcon className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="text-lg font-bold text-dark mb-2">{service.title}</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">{service.desc}</p>
+                      </div>
+                    </StaggerItem>
+                  );
+                })}
               </StaggerContainer>
             </div>
             <div>
               <h3 className="text-xl font-bold text-dark mb-6">{homeData.investorServicesTitle}</h3>
               <StaggerContainer className="space-y-6" staggerDelay={0.12}>
-                {homeData.investorServices.map((service, i) => (
-                  <StaggerItem key={i}>
-                    <div className="bg-[#f8f7f4] rounded-2xl p-6">
-                      <h4 className="text-lg font-bold text-dark mb-2">{service.title}</h4>
-                      <p className="text-gray-600 text-sm leading-relaxed">{service.desc}</p>
-                    </div>
-                  </StaggerItem>
-                ))}
+                {homeData.investorServices.map((service, i) => {
+                  const ServiceIcon = investorIcons[i];
+                  return (
+                    <StaggerItem key={i}>
+                      <div className="bg-[#f8f7f4] rounded-2xl p-6">
+                        <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center mb-4">
+                          <ServiceIcon className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="text-lg font-bold text-dark mb-2">{service.title}</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">{service.desc}</p>
+                      </div>
+                    </StaggerItem>
+                  );
+                })}
               </StaggerContainer>
             </div>
           </div>
