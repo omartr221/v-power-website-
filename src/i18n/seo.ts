@@ -28,7 +28,7 @@ const pageSeo: Record<Locale, Record<string, PageSeo>> = {
     "/about": {
       title: "من نحن | V POWER TUNING - أكبر مركز صيانة VAG في حمص",
       description:
-        "قصة V POWER TUNING: من استيراد قطع تعديل الأداء إلى أكبر مركز لصيانة سيارات VAG في حمص، ومستورد وموزع معتمد لقطع الغيار في السوق السورية.",
+        "قصة V POWER TUNING: من توريد قطع تعديل الأداء إلى أكبر مركز لصيانة سيارات VAG في حمص، وشريك وموزع معتمد لقطع الغيار في السوق السورية.",
     },
     "/contact": {
       title: "تواصل معنا | V POWER TUNING - حمص، سوريا",
@@ -65,7 +65,7 @@ const pageSeo: Record<Locale, Record<string, PageSeo>> = {
     "/about": {
       title: "About Us | V POWER TUNING - VAG Service Center in Homs, Syria",
       description:
-        "From importing performance parts to running the largest VAG service center in Homs, and a leading importer and authorized spare parts distributor in Syria.",
+        "From providing performance parts to running the largest VAG service center in Homs, as a leading authorized spare parts distributor in Syria.",
     },
     "/contact": {
       title: "Contact | V POWER TUNING - Homs, Syria",
