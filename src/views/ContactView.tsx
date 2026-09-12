@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
@@ -23,7 +23,8 @@ export default function ContactView({ locale }: { locale: Locale }) {
   const contactData = getContactContent(locale);
   const t = getContactStrings(locale);
   const isRtl = locale === "ar";
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [submitted, setSubmitted] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const contactInfo = [
     { icon: Mail, title: t.info.email, value: contactData.email, href: `mailto:${contactData.email}`, ltr: true },
@@ -38,26 +39,13 @@ export default function ContactView({ locale }: { locale: Locale }) {
     { IconComp: FacebookIcon, title: t.social.facebook, href: contactData.facebook, color: "text-blue-400 group-hover:bg-blue-600" },
   ];
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Keep a reference to the form: React nulls out `currentTarget` once the
-    // handler yields, so it cannot be read after the await below.
-    const form = e.currentTarget;
-    setStatus("sending");
-    const formData = new FormData(form);
-    try {
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as any).toString(),
-      });
-      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
-      form.reset();
-      setStatus("sent");
-    } catch {
-      setStatus("error");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setSubmitted(params.has("sent"));
+      setHasError(params.has("error"));
     }
-  };
+  }, []);
 
   return (
     <div className="py-16 bg-gradient-to-b from-[#f8f7f4] to-white overflow-hidden">
@@ -171,10 +159,15 @@ export default function ContactView({ locale }: { locale: Locale }) {
             <RevealOnScroll direction={isRtl ? "left" : "right"} delay={0.2}>
               <form
                 name="contact"
-                onSubmit={handleSubmit}
+                method="POST"
+                action="?sent=1"
+                data-netlify="true"
+                data-netlify-recaptcha="true"
+                data-netlify-honeypot="bot-field"
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8"
               >
                 <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="bot-field" />
                 <div className="space-y-5">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.nameLabel}</label>
@@ -228,19 +221,19 @@ export default function ContactView({ locale }: { locale: Locale }) {
                       required
                     ></textarea>
                   </div>
+                  <div data-netlify-recaptcha="true" className="min-h-[78px]"></div>
                   <MagneticHover>
                     <button
                       type="submit"
-                      disabled={status === "sending"}
-                      className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-3 rounded-lg font-bold transition-all text-lg"
+                      className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold transition-all text-lg"
                     >
-                      {status === "sending" ? t.form.sending : t.form.submit}
+                      {t.form.submit}
                     </button>
                   </MagneticHover>
-                  {status === "sent" && (
+                  {submitted && (
                     <p className="text-green-600 text-sm text-center font-medium">{t.form.success}</p>
                   )}
-                  {status === "error" && (
+                  {hasError && (
                     <p className="text-red-600 text-sm text-center font-medium">{t.form.error}</p>
                   )}
                 </div>
