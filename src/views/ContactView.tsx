@@ -1,11 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
 import { type Locale } from "@/i18n/config";
 import { getContactContent } from "@/i18n/content";
 import { getContactStrings } from "@/i18n/pages/contact";
+
+const RECAPTCHA_SITE_KEY = "6LccirctAAAAAOGjkxMZVGzFxFV_3Px7s09viSuC";
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      render: (container: HTMLElement | string, options: Record<string, unknown>) => number;
+      reset: (widgetId: number) => void;
+    };
+  }
+}
 
 const InstagramIcon = () => (
   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -19,18 +30,14 @@ const FacebookIcon = () => (
   </svg>
 );
 
-function randomDigit() {
-  return Math.floor(Math.random() * 9) + 1;
-}
-
 export default function ContactView({ locale }: { locale: Locale }) {
   const contactData = getContactContent(locale);
   const t = getContactStrings(locale);
   const isRtl = locale === "ar";
 
-  const [num1] = useState(randomDigit);
-  const [num2] = useState(randomDigit);
-  const [captcha, setCaptcha] = useState("");
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<number | null>(null);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
@@ -47,25 +54,55 @@ export default function ContactView({ locale }: { locale: Locale }) {
     { IconComp: FacebookIcon, title: t.social.facebook, href: contactData.facebook, color: "text-blue-400 group-hover:bg-blue-600" },
   ];
 
-  const captchaLabel = isRtl
-    ? `كم حاصل ${num1} + ${num2}؟ (للتأكد إنك مش روبوت)`
-    : `What is ${num1} + ${num2}? (to prove you're human)`;
-  const captchaPlaceholder = isRtl ? "اكتب الناتج" : "Enter the answer";
-  const captchaError = isRtl ? "الجواب غير صحيح" : "Answer is incorrect";
+  const missingCaptcha = isRtl
+    ? "يرجى التحقق من مربع 'أنا لست روبوت'"
+    : "Please verify the 'I\'m not a robot' box";
+
+  useEffect(() => {
+    if (!captchaRef.current) return;
+
+    const renderCaptcha = () => {
+      if (window.grecaptcha && captchaRef.current && widgetId.current === null) {
+        widgetId.current = window.grecaptcha.render(captchaRef.current, {
+          sitekey: RECAPTCHA_SITE_KEY,
+          theme: "light",
+          size: "normal",
+          hl: isRtl ? "ar" : "en",
+        });
+      }
+    };
+
+    if (window.grecaptcha) {
+      renderCaptcha();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=explicit&hl=${isRtl ? "ar" : "en"}`;
+    script.async = true;
+    script.defer = true;
+    script.onload = renderCaptcha;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [isRtl]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage(null);
 
-    if (parseInt(captcha, 10) !== num1 + num2) {
-      setCaptcha("");
-      setMessage({ type: "error", text: captchaError });
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const token = formData.get("g-recaptcha-response");
+
+    if (!token || (typeof token === "string" && token.length === 0)) {
+      setMessage({ type: "error", text: missingCaptcha });
       return;
     }
 
-    const form = e.currentTarget;
     setIsSubmitting(true);
-    const formData = new FormData(form);
     try {
       const res = await fetch("/__forms.html", {
         method: "POST",
@@ -74,7 +111,9 @@ export default function ContactView({ locale }: { locale: Locale }) {
       });
       if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
       form.reset();
-      setCaptcha("");
+      if (widgetId.current !== null && window.grecaptcha) {
+        window.grecaptcha.reset(widgetId.current);
+      }
       setMessage({ type: "success", text: t.form.success });
     } catch {
       setMessage({ type: "error", text: t.form.error });
@@ -253,19 +292,7 @@ export default function ContactView({ locale }: { locale: Locale }) {
                       required
                     ></textarea>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{captchaLabel}</label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      value={captcha}
-                      onChange={(e) => setCaptcha(e.target.value)}
-                      placeholder={captchaPlaceholder}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
-                      dir="ltr"
-                      required
-                    />
-                  </div>
+                  <div ref={captchaRef} className="min-h-[78px]"></div>
                   <MagneticHover>
                     <button
                       type="submit"
