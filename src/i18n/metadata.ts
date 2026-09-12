@@ -5,6 +5,7 @@ import { getUi } from "./ui";
 
 export const SITE_URL = "https://v-power-tuning.com";
 const OG_IMAGE = "/og-image.png";
+const GOOGLE_SITE_VERIFICATION = "UnKQPL2Nw1N82W89c9ZEIJV1hlcaLl6MLW3rGJG2mBc";
 
 const ogLocale: Record<Locale, string> = { ar: "ar_SY", en: "en_US" };
 
@@ -31,6 +32,7 @@ export function buildMetadata(
     metadataBase: new URL(SITE_URL),
     title,
     description,
+    verification: { google: GOOGLE_SITE_VERIFICATION },
     alternates: {
       canonical: url,
       languages: {
