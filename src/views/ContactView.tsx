@@ -40,17 +40,20 @@ export default function ContactView({ locale }: { locale: Locale }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Keep a reference to the form: React nulls out `currentTarget` once the
+    // handler yields, so it cannot be read after the await below.
+    const form = e.currentTarget;
     setStatus("sending");
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     try {
       const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as any).toString(),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+      form.reset();
       setStatus("sent");
-      e.currentTarget.reset();
     } catch {
       setStatus("error");
     }
