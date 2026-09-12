@@ -184,16 +184,6 @@ export default function ContactView({ locale }: { locale: Locale }) {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.phoneLabel}</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder={t.form.phonePlaceholder}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
-                      required
-                    />
-                  </div>
-                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">{t.form.emailLabel}</label>
                     <input
                       type="email"
@@ -201,6 +191,7 @@ export default function ContactView({ locale }: { locale: Locale }) {
                       placeholder={t.form.emailPlaceholder}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
                       dir="ltr"
+                      required
                     />
                   </div>
                   <div>
