@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Mail } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
@@ -19,12 +19,20 @@ const FacebookIcon = () => (
   </svg>
 );
 
+function randomDigit() {
+  return Math.floor(Math.random() * 9) + 1;
+}
+
 export default function ContactView({ locale }: { locale: Locale }) {
   const contactData = getContactContent(locale);
   const t = getContactStrings(locale);
   const isRtl = locale === "ar";
-  const [submitted, setSubmitted] = useState(false);
-  const [hasError, setHasError] = useState(false);
+
+  const [num1] = useState(randomDigit);
+  const [num2] = useState(randomDigit);
+  const [captcha, setCaptcha] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const contactInfo = [
     { icon: Mail, title: t.info.email, value: contactData.email, href: `mailto:${contactData.email}`, ltr: true },
@@ -39,13 +47,41 @@ export default function ContactView({ locale }: { locale: Locale }) {
     { IconComp: FacebookIcon, title: t.social.facebook, href: contactData.facebook, color: "text-blue-400 group-hover:bg-blue-600" },
   ];
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      setSubmitted(params.has("sent"));
-      setHasError(params.has("error"));
+  const captchaLabel = isRtl
+    ? `كم حاصل ${num1} + ${num2}؟ (للتأكد إنك مش روبوت)`
+    : `What is ${num1} + ${num2}? (to prove you're human)`;
+  const captchaPlaceholder = isRtl ? "اكتب الناتج" : "Enter the answer";
+  const captchaError = isRtl ? "الجواب غير صحيح" : "Answer is incorrect";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage(null);
+
+    if (parseInt(captcha, 10) !== num1 + num2) {
+      setCaptcha("");
+      setMessage({ type: "error", text: captchaError });
+      return;
     }
-  }, []);
+
+    const form = e.currentTarget;
+    setIsSubmitting(true);
+    const formData = new FormData(form);
+    try {
+      const res = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+      form.reset();
+      setCaptcha("");
+      setMessage({ type: "success", text: t.form.success });
+    } catch {
+      setMessage({ type: "error", text: t.form.error });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="py-16 bg-gradient-to-b from-[#f8f7f4] to-white overflow-hidden">
@@ -159,11 +195,7 @@ export default function ContactView({ locale }: { locale: Locale }) {
             <RevealOnScroll direction={isRtl ? "left" : "right"} delay={0.2}>
               <form
                 name="contact"
-                method="POST"
-                action="?sent=1"
-                data-netlify="true"
-                data-netlify-recaptcha="true"
-                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8"
               >
                 <input type="hidden" name="form-name" value="contact" />
@@ -221,20 +253,32 @@ export default function ContactView({ locale }: { locale: Locale }) {
                       required
                     ></textarea>
                   </div>
-                  <div data-netlify-recaptcha="true" className="min-h-[78px]"></div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{captchaLabel}</label>
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      value={captcha}
+                      onChange={(e) => setCaptcha(e.target.value)}
+                      placeholder={captchaPlaceholder}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-sm"
+                      dir="ltr"
+                      required
+                    />
+                  </div>
                   <MagneticHover>
                     <button
                       type="submit"
-                      className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold transition-all text-lg"
+                      disabled={isSubmitting}
+                      className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-3 rounded-lg font-bold transition-all text-lg"
                     >
-                      {t.form.submit}
+                      {isSubmitting ? t.form.sending : t.form.submit}
                     </button>
                   </MagneticHover>
-                  {submitted && (
-                    <p className="text-green-600 text-sm text-center font-medium">{t.form.success}</p>
-                  )}
-                  {hasError && (
-                    <p className="text-red-600 text-sm text-center font-medium">{t.form.error}</p>
+                  {message && (
+                    <p className={`text-sm text-center font-medium ${message.type === "success" ? "text-green-600" : "text-red-600"}`}>
+                      {message.text}
+                    </p>
                   )}
                 </div>
               </form>
