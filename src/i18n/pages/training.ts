@@ -57,8 +57,8 @@ const dictionaries = {
     ],
     cta: {
       title: "هل أنت مهتم بالتدريب أو التوظيف؟",
-      text: "سواء كنت تبحث عن تطوير مهاراتك، أو شركة تبحث عن كوادر فنية مؤهلة — تواصل معنا اليوم.",
-      button: "تواصل معنا",
+      text: "سواء كنت تبحث عن تطوير مهاراتك، أو شركة تبحث عن كوادر فنية مؤهلة — انتقل لمنصة التوظيف.",
+      button: "انتقل لمنصة التوظيف",
     },
   },
   en: {
@@ -114,8 +114,8 @@ const dictionaries = {
     ],
     cta: {
       title: "Interested in Training or Recruitment?",
-      text: "Whether you are looking to develop your own skills or you are a company searching for qualified technicians — get in touch with us today.",
-      button: "Contact Us",
+      text: "Whether you are looking to develop your own skills or you are a company searching for qualified technicians — visit our recruitment platform.",
+      button: "Go to Recruitment Platform",
     },
   },
 } as const;

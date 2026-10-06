@@ -1,16 +1,14 @@
 "use client";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { GraduationCap, CheckCircle2, Brain, Award, Users, ArrowLeft, ArrowRight } from "lucide-react";
 import { RevealOnScroll, StaggerContainer, StaggerItem, ScalePop, MagneticHover } from "@/components/MotionElements";
-import { localeHref, type Locale } from "@/i18n/config";
+import { type Locale } from "@/i18n/config";
 import { getTrainingStrings } from "@/i18n/pages/training";
 
 const iconMap = [GraduationCap, Brain, Users, Award];
 
 export default function TrainingView({ locale }: { locale: Locale }) {
   const t = getTrainingStrings(locale);
-  const href = (path: string) => localeHref(locale, path);
   const isRtl = locale === "ar";
   const Forward = isRtl ? ArrowLeft : ArrowRight;
   const trainingPrograms = t.programs.map((program, i) => ({ ...program, icon: iconMap[i] || GraduationCap }));
@@ -94,13 +92,15 @@ export default function TrainingView({ locale }: { locale: Locale }) {
                 {t.cta.text}
               </p>
               <MagneticHover>
-                <Link
-                  href={href("/contact")}
+                <a
+                  href="https://v-power-jobs-production.up.railway.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition-all"
                 >
                   {t.cta.button}
                   <Forward className="w-5 h-5" />
-                </Link>
+                </a>
               </MagneticHover>
             </div>
           </div>
